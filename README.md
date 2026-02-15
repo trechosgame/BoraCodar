@@ -1,1311 +1,381 @@
-# Atualização Site Oba Pizzaria
-Preciso que este código fique atualizado na versão mobile "
-
-```html
 <!DOCTYPE html>
-<html lang= "pt-br">
-
+<html lang="pt-br">
 <head>
-  <!-- Basic -->
-  <meta charset="utf-8" />
-  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <!-- Mobile Metas -->
-  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
-  <!-- Site Metas -->
-  <meta name="keywords" content="" />
-  <meta name="description" content="" />
-  <meta name="author" content="" />
-  <link rel="shortcut icon" href="imagens/favicon.ico" type="image/x-icon">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Carrinho - Oba Pizzaria</title>
+  <meta name="description" content="Veja os itens no seu carrinho e finalize seu pedido agora!">
 
-  <title> ObaPizzaria </title>
+  <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.0/css/line.css">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
 
-  <!-- bootstrap core css -->
-  <link rel="stylesheet" type="text/css" href="css/bootstrap.css" />
+  <style>
+    :root{--primary:#ff6b35;--dark:#222;--light:#fff;--gray:#666;--success:#28a745;--danger:#dc3545;--warning:#ffc107}
+    *{margin:0;padding:0;box-sizing:border-box}
+    body{font-family:'Poppins',sans-serif;background:#f9f9f9;color:var(--dark);line-height:1.6}
+    .container{max-width:1100px;margin:0 auto;padding:0 15px}
 
-  <!--owl slider stylesheet -->
-  <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.min.css" />
-  <!-- nice select  -->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-nice-select/1.1.0/css/nice-select.min.css" integrity="sha512-CruCP+TD3yXzlvvijET8wV5WxxEh5H8P4cmz0RFbKK6FlZ2sYl3AEsKlLPHbniXKSrDdFewhbmBK5skbdsASbQ==" crossorigin="anonymous" />
-  <!-- font awesome style -->
-  <link href="css/font-awesome.min.css" rel="stylesheet" />
+    header{position:fixed;top:0;left:0;width:100%;background:rgba(255,255,255,0.95);backdrop-filter:blur(10px);box-shadow:0 2px 10px rgba(0,0,0,0.08);z-index:1000}
+    .nav{display:flex;justify-content:space-between;align-items:center;padding:1rem 0}
+    .logo{font-size:1.8rem;font-weight:700;color:var(--primary)}
+    .menu-btn{display:none;flex-direction:column;gap:5px;width:35px;cursor:pointer}
+    .menu-btn span{height:3px;background:var(--dark);transition:.4s}
+    nav ul{display:flex;list-style:none;gap:1.5rem;align-items:center}
+    nav a{color:var(--dark);text-decoration:none;font-weight:600}
+    nav a:hover{color:var(--primary)}
 
-  <!-- Custom styles for this template -->
-  <link href="css/style.css" rel="stylesheet" />
-  <!-- responsive style -->
-  <link href="css/responsive.css" rel="stylesheet" />
+    section{padding:100px 0 60px}
+    h2{text-align:center;font-size:clamp(2rem,6vw,3.5rem);margin-bottom:2rem}
 
+    .cart-empty{text-align:center;padding:4rem 0;font-size:1.3rem;color:var(--gray)}
+    .cart-items{margin-bottom:3rem}
+    .cart-item{display:flex;align-items:center;background:white;border-radius:12px;padding:1rem;margin-bottom:1rem;box-shadow:0 4px 12px rgba(0,0,0,0.08);gap:1rem}
+    .cart-item img{width:80px;height:80px;object-fit:cover;border-radius:8px}
+    .item-info{flex-grow:1}
+    .item-info h4{margin-bottom:0.3rem;font-size:1.1rem}
+    .item-info .price{color:var(--primary);font-weight:600}
+    .quantity{display:flex;align-items:center;gap:0.8rem}
+    .quantity button{width:32px;height:32px;border:1px solid #ddd;border-radius:50%;background:none;cursor:pointer;font-size:1.1rem}
+    .quantity span{font-weight:600;min-width:30px;text-align:center}
+    .remove-btn{background:none;border:none;color:var(--danger);font-size:1.4rem;cursor:pointer}
+
+    .cart-summary{background:white;border-radius:12px;padding:1.5rem;box-shadow:0 4px 12px rgba(0,0,0,0.08)}
+    .cart-summary h3{margin-bottom:1rem}
+    .discount-row{margin:1rem 0;padding:0.8rem;background:#f8f9fa;border-radius:8px;display:flex;justify-content:space-between;align-items:center}
+    .discount-info{color:var(--success);font-weight:600}
+    .coupon-form{display:flex;gap:0.8rem;margin:1.5rem 0;flex-wrap:wrap}
+    .coupon-form input{flex:1;padding:0.8rem;border:1px solid #ddd;border-radius:8px;font-size:1rem;min-width:180px}
+    .coupon-form button{background:var(--primary);color:white;border:none;padding:0.8rem 1.5rem;border-radius:8px;cursor:pointer;font-weight:600}
+    .coupon-form button:hover{background:#e55a2d}
+    .coupon-message{font-size:0.9rem;margin-top:0.5rem}
+    .coupon-message.success{color:var(--success)}
+    .coupon-message.error{color:var(--danger)}
+    .coupon-message.warning{color:var(--warning)}
+
+    .total-row{display:flex;justify-content:space-between;font-size:1.6rem;font-weight:700;color:var(--primary);margin:1rem 0}
+    .checkout-btn{background:var(--primary);color:white;border:none;padding:1rem 2rem;border-radius:50px;font-size:1.1rem;font-weight:600;cursor:pointer;margin-top:1.5rem;width:100%;max-width:300px}
+    .checkout-btn:hover{background:#e55a2d}
+    .clear-btn{background:var(--danger);color:white;border:none;padding:0.8rem 1.5rem;border-radius:50px;margin-top:1rem;cursor:pointer}
+
+    footer{background:var(--dark);color:white;text-align:center;padding:3rem 0 1.5rem}
+    .social a{color:white;font-size:1.8rem;margin:0 1rem}
+
+    .whatsapp-float{position:fixed;bottom:20px;right:20px;z-index:9999}
+    .whatsapp-float a{display:flex;align-items:center;justify-content:center;width:60px;height:60px;background:#25D366;color:white;border-radius:50%;font-size:2rem;box-shadow:0 4px 15px rgba(37,211,102,0.4);transition:.3s}
+    .whatsapp-float a:hover{transform:scale(1.1)}
+
+    @media (max-width:991px){
+      .menu-btn{display:flex}
+      nav ul{position:fixed;inset:0;background:rgba(255,255,255,0.98);backdrop-filter:blur(10px);flex-direction:column;justify-content:center;align-items:center;transform:translateY(-100%);transition:.4s;z-index:999}
+      nav ul.active{transform:translateY(0)}
+      .menu-btn.active span:nth-child(1){transform:rotate(45deg) translate(8px,8px)}
+      .menu-btn.active span:nth-child(2){opacity:0}
+      .menu-btn.active span:nth-child(3){transform:rotate(-45deg) translate(7px,-7px)}
+      .cart-item{flex-direction:column;text-align:center}
+      .cart-item img{width:120px;height:120px}
+      .coupon-form{flex-direction:column}
+    }
+
+    @media (max-width:576px){
+      section{padding:90px 0 40px}
+    }
+  </style>
 </head>
-
 <body>
 
-  <div class="hero_area">
-    <div class="bg-box">
-      <img src="imagens/bg.jpg" alt="">
+<header>
+  <div class="container">
+    <div class="nav">
+      <div class="logo">Oba Pizzaria</div>
+      <button class="menu-btn"><span></span><span></span><span></span></button>
+      <nav>
+        <ul>
+          <li><a href="index.html">Início</a></li>
+          <li><a href="menu.html">Cardápio</a></li>
+          <li><a href="about.html">Sobre</a></li>
+          <li><a href="#">Reservas</a></li>
+          <li><a href="carrinho.html">Carrinho <span id="cartCountHeader">0</span></a></li>
+        </ul>
+      </nav>
     </div>
-    <!-- header section strats -->
-    <header class="header_section">
-      <div class="container">
-        <nav class="navbar navbar-expand-lg custom_nav-container ">
-          <a class="navbar-brand" href="about.html">
-            <span>
-              ObaPizzaria
-            </span>
-          </a>
-
-          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-            <span class=""> </span>
-          </button>
-
-          <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            <ul class="navbar-nav  mx-auto ">
-              <li class="nav-item active">
-                <a class="nav-link" href="app.html">Início<span class="sr-only">(current)</span></a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="menu.html">Cardápio</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="about.html">A Oba Pizzaria</a>
-              </li>
-              <!-- INÍCIO DO CARRINHO -->
-              <div class="user_option">
-              <a href="" class="user_link">
-                <i class="fa fa-user" aria-hidden="true"></i>
-              </a>
-              <a class="cart_link" href="#">
-                <svg version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 456.029 456.029" style="enable-background:new 0 0 456.029 456.029;" xml:space="preserve">
-                  <g>
-                    <g>
-                      <path d="M345.6,338.862c-29.184,0-53.248,23.552-53.248,53.248c0,29.184,23.552,53.248,53.248,53.248
-                   c29.184,0,53.248-23.552,53.248-53.248C398.336,362.926,374.784,338.862,345.6,338.862z" />
-                    </g>
-                  </g>
-                  <g>
-                    <g>
-                      <path d="M439.296,84.91c-1.024,0-2.56-0.512-4.096-0.512H112.64l-5.12-34.304C104.448,27.566,84.992,10.67,61.952,10.67H20.48
-                   C9.216,10.67,0,19.886,0,31.15c0,11.264,9.216,20.48,20.48,20.48h41.472c2.56,0,4.608,2.048,5.12,4.608l31.744,216.064
-                   c4.096,27.136,27.648,47.616,55.296,47.616h212.992c26.624,0,49.664-18.944,55.296-45.056l33.28-166.4
-                   C457.728,97.71,450.56,86.958,439.296,84.91z" />
-                    </g>
-                  </g>
-                  <g>
-                    <g>
-                      <path d="M215.04,389.55c-1.024-28.16-24.576-50.688-52.736-50.688c-29.696,1.536-52.224,26.112-51.2,55.296
-                   c1.024,28.16,24.064,50.688,52.224,50.688h1.024C193.536,443.31,216.576,418.734,215.04,389.55z" />
-                    </g>
-                  </g>
-                  <g>
-                  </g>
-                  <g>
-                  </g>
-                  <g>
-                  </g>
-                  <g>
-                  </g>
-                  <g>
-                  </g>
-                  <g>
-                  </g>
-                  <g>
-                  </g>
-                  <g>
-                  </g>
-                  <g>
-                  </g>
-                  <g>
-                  </g>
-                  <g>
-                  </g>
-                  <g>
-                  </g>
-                  <g>
-                  </g>
-                  <g>
-                  </g>
-                  <g>
-                  </g>
-                </svg>
-              </a>
-              <!-- FIM DO CARRINHO -->
-
-            </ul>
-            
-              <form class="form-inline">
-                <button class="btn  my-2 my-sm-0 nav_search-btn" type="submit">
-                  <i class="fa fa-search" aria-hidden="true"></i>
-                </button>
-              </form>
-
-            </div>
-          </div>
-        </nav>
-      </div>
-    </header>
-    <!-- end header section -->
-
-
-   
-
-
   </div>
+</header>
 
-  <!-- offer section -->
+<section>
+  <div class="container">
+    <h2>Seu Carrinho</h2>
 
-  <section class="offer_section layout_padding-bottom">
-    <div class="offer_container">
-      <div class="container ">
-        <div class="row">
-          <div class="col-md-6  ">
-            <div class="box ">
-              <div class="img-box">
-                <img src="imagens/o1.jpg" alt="">
-              </div>
+    <div class="cart-items" id="cartItems"></div>
 
-
-              <div class="detail-box">
-                <h5>
-                  Tasty Thursdays
-                </h5>
-                <h6>
-                  <span>20%</span> Off
-                </h6>
-                <a href="">
-                  Order Now <svg version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 456.029 456.029" style="enable-background:new 0 0 456.029 456.029;" xml:space="preserve">
-                    <g>
-                      <g>
-                        <path d="M345.6,338.862c-29.184,0-53.248,23.552-53.248,53.248c0,29.184,23.552,53.248,53.248,53.248
-                     c29.184,0,53.248-23.552,53.248-53.248C398.336,362.926,374.784,338.862,345.6,338.862z" />
-                      </g>
-                    </g>
-                    <g>
-                      <g>
-                        <path d="M439.296,84.91c-1.024,0-2.56-0.512-4.096-0.512H112.64l-5.12-34.304C104.448,27.566,84.992,10.67,61.952,10.67H20.48
-                     C9.216,10.67,0,19.886,0,31.15c0,11.264,9.216,20.48,20.48,20.48h41.472c2.56,0,4.608,2.048,5.12,4.608l31.744,216.064
-                     c4.096,27.136,27.648,47.616,55.296,47.616h212.992c26.624,0,49.664-18.944,55.296-45.056l33.28-166.4
-                     C457.728,97.71,450.56,86.958,439.296,84.91z" />
-                      </g>
-                    </g>
-                    <g>
-                      <g>
-                        <path d="M215.04,389.55c-1.024-28.16-24.576-50.688-52.736-50.688c-29.696,1.536-52.224,26.112-51.2,55.296
-                     c1.024,28.16,24.064,50.688,52.224,50.688h1.024C193.536,443.31,216.576,418.734,215.04,389.55z" />
-                      </g>
-                    </g>
-                    <g>
-                    </g>
-                    <g>
-                    </g>
-                    <g>
-                    </g>
-                    <g>
-                    </g>
-                    <g>
-                    </g>
-                    <g>
-                    </g>
-                    <g>
-                    </g>
-                    <g>
-                    </g>
-                    <g>
-                    </g>
-                    <g>
-                    </g>
-                    <g>
-                    </g>
-                    <g>
-                    </g>
-                    <g>
-                    </g>
-                    <g>
-                    </g>
-                    <g>
-                    </g>
-                  </svg>
-                </a>
-              </div>
-            </div>
-          </div>
-          <div class="col-md-6  ">
-            <div class="box ">
-              <div class="img-box">
-                <img src="imagens/o2.jpg" alt="">
-              </div>
-              <div class="detail-box">
-                <h5>
-                  Pizza Days
-                </h5>
-                <h6>
-                  <span>15%</span> Off
-                </h6>
-                <a href="">
-                  Order Now <svg version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 456.029 456.029" style="enable-background:new 0 0 456.029 456.029;" xml:space="preserve">
-                    <g>
-                      <g>
-                        <path d="M345.6,338.862c-29.184,0-53.248,23.552-53.248,53.248c0,29.184,23.552,53.248,53.248,53.248
-                     c29.184,0,53.248-23.552,53.248-53.248C398.336,362.926,374.784,338.862,345.6,338.862z" />
-                      </g>
-                    </g>
-                    <g>
-                      <g>
-                        <path d="M439.296,84.91c-1.024,0-2.56-0.512-4.096-0.512H112.64l-5.12-34.304C104.448,27.566,84.992,10.67,61.952,10.67H20.48
-                     C9.216,10.67,0,19.886,0,31.15c0,11.264,9.216,20.48,20.48,20.48h41.472c2.56,0,4.608,2.048,5.12,4.608l31.744,216.064
-                     c4.096,27.136,27.648,47.616,55.296,47.616h212.992c26.624,0,49.664-18.944,55.296-45.056l33.28-166.4
-                     C457.728,97.71,450.56,86.958,439.296,84.91z" />
-                      </g>
-                    </g>
-                    <g>
-                      <g>
-                        <path d="M215.04,389.55c-1.024-28.16-24.576-50.688-52.736-50.688c-29.696,1.536-52.224,26.112-51.2,55.296
-                     c1.024,28.16,24.064,50.688,52.224,50.688h1.024C193.536,443.31,216.576,418.734,215.04,389.55z" />
-                      </g>
-                    </g>
-                    <g>
-                    </g>
-                    <g>
-                    </g>
-                    <g>
-                    </g>
-                    <g>
-                    </g>
-                    <g>
-                    </g>
-                    <g>
-                    </g>
-                    <g>
-                    </g>
-                    <g>
-                    </g>
-                    <g>
-                    </g>
-                    <g>
-                    </g>
-                    <g>
-                    </g>
-                    <g>
-                    </g>
-                    <g>
-                    </g>
-                    <g>
-                    </g>
-                    <g>
-                    </g>
-                  </svg>
-                </a>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
+    <div class="cart-empty" id="cartEmpty" style="display:none">
+      <p>Seu carrinho está vazio.</p>
+      <a href="menu.html" class="btn" style="background:var(--primary);color:white;padding:0.8rem 1.5rem;border-radius:50px;text-decoration:none;margin-top:1rem;display:inline-block">Voltar ao Cardápio</a>
     </div>
-  </section>
 
-  <!-- end offer section -->
+    <div class="cart-summary" id="cartSummary" style="display:none">
+      <h3>Resumo do Pedido</h3>
 
-  <!-- food section -->
+      <!-- Área do cupom -->
+      <div class="coupon-form">
+        <input type="text" id="couponCode" placeholder="Digite o código do cupom" autocomplete="off">
+        <button onclick="applyCoupon()">Aplicar Cupom</button>
+      </div>
+      <div id="couponMessage" class="coupon-message"></div>
 
-  <section class="food_section layout_padding-bottom">
-    <div class="container">
-      <div class="heading_container heading_center">
-        <h2>
-          Cardápio
-        </h2>
+      <div id="discountRow" class="discount-row" style="display:none">
+        <span>Desconto aplicado:</span>
+        <span id="discountValue" class="discount-info"></span>
       </div>
 
-      <ul class="filters_menu">
-        <li class="active" data-filter="*">Todos</li>
-        <li data-filter=".burger">Pizzas</li>
-        <li data-filter=".pizza">Massas</li>
-        <li data-filter=".pasta">Lanches</li>
-        <li data-filter=".fries">Bebidas</li>
-      </ul>
+      <div class="total-row">
+        <span>Total:</span>
+        <span id="cartTotal">R$ 0,00</span>
+      </div>
 
-      <div class="filters-content">
-        <div class="row grid">
-          <div class="col-sm-6 col-lg-4 all pizza">
-            <div class="box">
-              <div>
-                <div class="img-box">
-                  <img src="imagens/f1.png" alt="">
-                </div>
-                <div class="detail-box">
-                  <h5>
-                    Massa
-                  </h5>
-                  <p>
-                    Veniam debitis quaerat officiis quasi cupiditate quo, quisquam velit, magnam voluptatem repellendus sed eaque
-                  </p>
-                  <div class="options">
-                    <h6>
-                      $20
-                    </h6>
-                    <a href="">
-                      <svg version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 456.029 456.029" style="enable-background:new 0 0 456.029 456.029;" xml:space="preserve">
-                        <g>
-                          <g>
-                            <path d="M345.6,338.862c-29.184,0-53.248,23.552-53.248,53.248c0,29.184,23.552,53.248,53.248,53.248
-                         c29.184,0,53.248-23.552,53.248-53.248C398.336,362.926,374.784,338.862,345.6,338.862z" />
-                          </g>
-                        </g>
-                        <g>
-                          <g>
-                            <path d="M439.296,84.91c-1.024,0-2.56-0.512-4.096-0.512H112.64l-5.12-34.304C104.448,27.566,84.992,10.67,61.952,10.67H20.48
-                         C9.216,10.67,0,19.886,0,31.15c0,11.264,9.216,20.48,20.48,20.48h41.472c2.56,0,4.608,2.048,5.12,4.608l31.744,216.064
-                         c4.096,27.136,27.648,47.616,55.296,47.616h212.992c26.624,0,49.664-18.944,55.296-45.056l33.28-166.4
-                         C457.728,97.71,450.56,86.958,439.296,84.91z" />
-                          </g>
-                        </g>
-                        <g>
-                          <g>
-                            <path d="M215.04,389.55c-1.024-28.16-24.576-50.688-52.736-50.688c-29.696,1.536-52.224,26.112-51.2,55.296
-                         c1.024,28.16,24.064,50.688,52.224,50.688h1.024C193.536,443.31,216.576,418.734,215.04,389.55z" />
-                          </g>
-                        </g>
-                        <g>
-                        </g>
-                        <g>
-                        </g>
-                        <g>
-                        </g>
-                        <g>
-                        </g>
-                        <g>
-                        </g>
-                        <g>
-                        </g>
-                        <g>
-                        </g>
-                        <g>
-                        </g>
-                        <g>
-                        </g>
-                        <g>
-                        </g>
-                        <g>
-                        </g>
-                        <g>
-                        </g>
-                        <g>
-                        </g>
-                        <g>
-                        </g>
-                        <g>
-                        </g>
-                      </svg>
-                    </a>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="col-sm-6 col-lg-4 all burger">
-            <div class="box">
-              <div>
-                <div class="img-box">
-                  <img src="imagens/f2.png" alt="">
-                </div>
-                <div class="detail-box">
-                  <h5>
-                    Pizza
-                  </h5>
-                  <p>
-                    Veniam debitis quaerat officiis quasi cupiditate quo, quisquam velit, magnam voluptatem repellendus sed eaque
-                  </p>
-                  <div class="options">
-                    <h6>
-                      $15
-                    </h6>
-                    <a href="">
-                      <svg version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 456.029 456.029" style="enable-background:new 0 0 456.029 456.029;" xml:space="preserve">
-                        <g>
-                          <g>
-                            <path d="M345.6,338.862c-29.184,0-53.248,23.552-53.248,53.248c0,29.184,23.552,53.248,53.248,53.248
-                         c29.184,0,53.248-23.552,53.248-53.248C398.336,362.926,374.784,338.862,345.6,338.862z" />
-                          </g>
-                        </g>
-                        <g>
-                          <g>
-                            <path d="M439.296,84.91c-1.024,0-2.56-0.512-4.096-0.512H112.64l-5.12-34.304C104.448,27.566,84.992,10.67,61.952,10.67H20.48
-                         C9.216,10.67,0,19.886,0,31.15c0,11.264,9.216,20.48,20.48,20.48h41.472c2.56,0,4.608,2.048,5.12,4.608l31.744,216.064
-                         c4.096,27.136,27.648,47.616,55.296,47.616h212.992c26.624,0,49.664-18.944,55.296-45.056l33.28-166.4
-                         C457.728,97.71,450.56,86.958,439.296,84.91z" />
-                          </g>
-                        </g>
-                        <g>
-                          <g>
-                            <path d="M215.04,389.55c-1.024-28.16-24.576-50.688-52.736-50.688c-29.696,1.536-52.224,26.112-51.2,55.296
-                         c1.024,28.16,24.064,50.688,52.224,50.688h1.024C193.536,443.31,216.576,418.734,215.04,389.55z" />
-                          </g>
-                        </g>
-                        <g>
-                        </g>
-                        <g>
-                        </g>
-                        <g>
-                        </g>
-                        <g>
-                        </g>
-                        <g>
-                        </g>
-                        <g>
-                        </g>
-                        <g>
-                        </g>
-                        <g>
-                        </g>
-                        <g>
-                        </g>
-                        <g>
-                        </g>
-                        <g>
-                        </g>
-                        <g>
-                        </g>
-                        <g>
-                        </g>
-                        <g>
-                        </g>
-                        <g>
-                        </g>
-                      </svg>
-                    </a>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="col-sm-6 col-lg-4 all pizza">
-            <div class="box">
-              <div>
-                <div class="img-box">
-                  <img src="imagens/f3.png" alt="">
-                </div>
-                <div class="detail-box">
-                  <h5>
-                    Massa
-                  </h5>
-                  <p>
-                    Veniam debitis quaerat officiis quasi cupiditate quo, quisquam velit, magnam voluptatem repellendus sed eaque
-                  </p>
-                  <div class="options">
-                    <h6>
-                      $17
-                    </h6>
-                    <a href="">
-                      <svg version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 456.029 456.029" style="enable-background:new 0 0 456.029 456.029;" xml:space="preserve">
-                        <g>
-                          <g>
-                            <path d="M345.6,338.862c-29.184,0-53.248,23.552-53.248,53.248c0,29.184,23.552,53.248,53.248,53.248
-                         c29.184,0,53.248-23.552,53.248-53.248C398.336,362.926,374.784,338.862,345.6,338.862z" />
-                          </g>
-                        </g>
-                        <g>
-                          <g>
-                            <path d="M439.296,84.91c-1.024,0-2.56-0.512-4.096-0.512H112.64l-5.12-34.304C104.448,27.566,84.992,10.67,61.952,10.67H20.48
-                         C9.216,10.67,0,19.886,0,31.15c0,11.264,9.216,20.48,20.48,20.48h41.472c2.56,0,4.608,2.048,5.12,4.608l31.744,216.064
-                         c4.096,27.136,27.648,47.616,55.296,47.616h212.992c26.624,0,49.664-18.944,55.296-45.056l33.28-166.4
-                         C457.728,97.71,450.56,86.958,439.296,84.91z" />
-                          </g>
-                        </g>
-                        <g>
-                          <g>
-                            <path d="M215.04,389.55c-1.024-28.16-24.576-50.688-52.736-50.688c-29.696,1.536-52.224,26.112-51.2,55.296
-                         c1.024,28.16,24.064,50.688,52.224,50.688h1.024C193.536,443.31,216.576,418.734,215.04,389.55z" />
-                          </g>
-                        </g>
-                        <g>
-                        </g>
-                        <g>
-                        </g>
-                        <g>
-                        </g>
-                        <g>
-                        </g>
-                        <g>
-                        </g>
-                        <g>
-                        </g>
-                        <g>
-                        </g>
-                        <g>
-                        </g>
-                        <g>
-                        </g>
-                        <g>
-                        </g>
-                        <g>
-                        </g>
-                        <g>
-                        </g>
-                        <g>
-                        </g>
-                        <g>
-                        </g>
-                        <g>
-                        </g>
-                      </svg>
-                    </a>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="col-sm-6 col-lg-4 all pasta">
-            <div class="box">
-              <div>
-                <div class="img-box">
-                  <img src="imagens/f4.png" alt="">
-                </div>
-                <div class="detail-box">
-                  <h5>
-                    Lanches
-                  </h5>
-                  <p>
-                    Veniam debitis quaerat officiis quasi cupiditate quo, quisquam velit, magnam voluptatem repellendus sed eaque
-                  </p>
-                  <div class="options">
-                    <h6>
-                      $18
-                    </h6>
-                    <a href="">
-                      <svg version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 456.029 456.029" style="enable-background:new 0 0 456.029 456.029;" xml:space="preserve">
-                        <g>
-                          <g>
-                            <path d="M345.6,338.862c-29.184,0-53.248,23.552-53.248,53.248c0,29.184,23.552,53.248,53.248,53.248
-                         c29.184,0,53.248-23.552,53.248-53.248C398.336,362.926,374.784,338.862,345.6,338.862z" />
-                          </g>
-                        </g>
-                        <g>
-                          <g>
-                            <path d="M439.296,84.91c-1.024,0-2.56-0.512-4.096-0.512H112.64l-5.12-34.304C104.448,27.566,84.992,10.67,61.952,10.67H20.48
-                         C9.216,10.67,0,19.886,0,31.15c0,11.264,9.216,20.48,20.48,20.48h41.472c2.56,0,4.608,2.048,5.12,4.608l31.744,216.064
-                         c4.096,27.136,27.648,47.616,55.296,47.616h212.992c26.624,0,49.664-18.944,55.296-45.056l33.28-166.4
-                         C457.728,97.71,450.56,86.958,439.296,84.91z" />
-                          </g>
-                        </g>
-                        <g>
-                          <g>
-                            <path d="M215.04,389.55c-1.024-28.16-24.576-50.688-52.736-50.688c-29.696,1.536-52.224,26.112-51.2,55.296
-                         c1.024,28.16,24.064,50.688,52.224,50.688h1.024C193.536,443.31,216.576,418.734,215.04,389.55z" />
-                          </g>
-                        </g>
-                        <g>
-                        </g>
-                        <g>
-                        </g>
-                        <g>
-                        </g>
-                        <g>
-                        </g>
-                        <g>
-                        </g>
-                        <g>
-                        </g>
-                        <g>
-                        </g>
-                        <g>
-                        </g>
-                        <g>
-                        </g>
-                        <g>
-                        </g>
-                        <g>
-                        </g>
-                        <g>
-                        </g>
-                        <g>
-                        </g>
-                        <g>
-                        </g>
-                        <g>
-                        </g>
-                      </svg>
-                    </a>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="col-sm-6 col-lg-4 all fries">
-            <div class="box">
-              <div>
-                <div class="img-box">
-                  <img src="imagens/f5.png" alt="">
-                </div>
-                <div class="detail-box">
-                  <h5>
-                    Bebidas
-                  </h5>
-                  <p>
-                    Veniam debitis quaerat officiis quasi cupiditate quo, quisquam velit, magnam voluptatem repellendus sed eaque
-                  </p>
-                  <div class="options">
-                    <h6>
-                      R$10,00
-                    </h6>
-                    <a href="">
-                      <svg version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 456.029 456.029" style="enable-background:new 0 0 456.029 456.029;" xml:space="preserve">
-                        <g>
-                          <g>
-                            <path d="M345.6,338.862c-29.184,0-53.248,23.552-53.248,53.248c0,29.184,23.552,53.248,53.248,53.248
-                         c29.184,0,53.248-23.552,53.248-53.248C398.336,362.926,374.784,338.862,345.6,338.862z" />
-                          </g>
-                        </g>
-                        <g>
-                          <g>
-                            <path d="M439.296,84.91c-1.024,0-2.56-0.512-4.096-0.512H112.64l-5.12-34.304C104.448,27.566,84.992,10.67,61.952,10.67H20.48
-                         C9.216,10.67,0,19.886,0,31.15c0,11.264,9.216,20.48,20.48,20.48h41.472c2.56,0,4.608,2.048,5.12,4.608l31.744,216.064
-                         c4.096,27.136,27.648,47.616,55.296,47.616h212.992c26.624,0,49.664-18.944,55.296-45.056l33.28-166.4
-                         C457.728,97.71,450.56,86.958,439.296,84.91z" />
-                          </g>
-                        </g>
-                        <g>
-                          <g>
-                            <path d="M215.04,389.55c-1.024-28.16-24.576-50.688-52.736-50.688c-29.696,1.536-52.224,26.112-51.2,55.296
-                         c1.024,28.16,24.064,50.688,52.224,50.688h1.024C193.536,443.31,216.576,418.734,215.04,389.55z" />
-                          </g>
-                        </g>
-                        <g>
-                        </g>
-                        <g>
-                        </g>
-                        <g>
-                        </g>
-                        <g>
-                        </g>
-                        <g>
-                        </g>
-                        <g>
-                        </g>
-                        <g>
-                        </g>
-                        <g>
-                        </g>
-                        <g>
-                        </g>
-                        <g>
-                        </g>
-                        <g>
-                        </g>
-                        <g>
-                        </g>
-                        <g>
-                        </g>
-                        <g>
-                        </g>
-                        <g>
-                        </g>
-                      </svg>
-                    </a>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="col-sm-6 col-lg-4 all pizza">
-            <div class="box">
-              <div>
-                <div class="img-box">
-                  <img src="imagens/f6.png" alt="">
-                </div>
-                <div class="detail-box">
-                  <h5>
-                    Lanches
-                  </h5>
-                  <p>
-                    Veniam debitis quaerat officiis quasi cupiditate quo, quisquam velit, magnam voluptatem repellendus sed eaque
-                  </p>
-                  <div class="options">
-                    <h6>
-                      $15
-                    </h6>
-                    <a href="">
-                      <svg version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 456.029 456.029" style="enable-background:new 0 0 456.029 456.029;" xml:space="preserve">
-                        <g>
-                          <g>
-                            <path d="M345.6,338.862c-29.184,0-53.248,23.552-53.248,53.248c0,29.184,23.552,53.248,53.248,53.248
-                         c29.184,0,53.248-23.552,53.248-53.248C398.336,362.926,374.784,338.862,345.6,338.862z" />
-                          </g>
-                        </g>
-                        <g>
-                          <g>
-                            <path d="M439.296,84.91c-1.024,0-2.56-0.512-4.096-0.512H112.64l-5.12-34.304C104.448,27.566,84.992,10.67,61.952,10.67H20.48
-                         C9.216,10.67,0,19.886,0,31.15c0,11.264,9.216,20.48,20.48,20.48h41.472c2.56,0,4.608,2.048,5.12,4.608l31.744,216.064
-                         c4.096,27.136,27.648,47.616,55.296,47.616h212.992c26.624,0,49.664-18.944,55.296-45.056l33.28-166.4
-                         C457.728,97.71,450.56,86.958,439.296,84.91z" />
-                          </g>
-                        </g>
-                        <g>
-                          <g>
-                            <path d="M215.04,389.55c-1.024-28.16-24.576-50.688-52.736-50.688c-29.696,1.536-52.224,26.112-51.2,55.296
-                         c1.024,28.16,24.064,50.688,52.224,50.688h1.024C193.536,443.31,216.576,418.734,215.04,389.55z" />
-                          </g>
-                        </g>
-                        <g>
-                        </g>
-                        <g>
-                        </g>
-                        <g>
-                        </g>
-                        <g>
-                        </g>
-                        <g>
-                        </g>
-                        <g>
-                        </g>
-                        <g>
-                        </g>
-                        <g>
-                        </g>
-                        <g>
-                        </g>
-                        <g>
-                        </g>
-                        <g>
-                        </g>
-                        <g>
-                        </g>
-                        <g>
-                        </g>
-                        <g>
-                        </g>
-                        <g>
-                        </g>
-                      </svg>
-                    </a>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="col-sm-6 col-lg-4 all burger">
-            <div class="box">
-              <div>
-                <div class="img-box">
-                  <img src="imagens/f7.png" alt="">
-                </div>
-                <div class="detail-box">
-                  <h5>
-                    Pizza
-                  </h5>
-                  <p>
-                    Veniam debitis quaerat officiis quasi cupiditate quo, quisquam velit, magnam voluptatem repellendus sed eaque
-                  </p>
-                  <div class="options">
-                    <h6>
-                      R$12,00
-                    </h6>
-                    <a href="">
-                      <svg version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 456.029 456.029" style="enable-background:new 0 0 456.029 456.029;" xml:space="preserve">
-                        <g>
-                          <g>
-                            <path d="M345.6,338.862c-29.184,0-53.248,23.552-53.248,53.248c0,29.184,23.552,53.248,53.248,53.248
-                         c29.184,0,53.248-23.552,53.248-53.248C398.336,362.926,374.784,338.862,345.6,338.862z" />
-                          </g>
-                        </g>
-                        <g>
-                          <g>
-                            <path d="M439.296,84.91c-1.024,0-2.56-0.512-4.096-0.512H112.64l-5.12-34.304C104.448,27.566,84.992,10.67,61.952,10.67H20.48
-                         C9.216,10.67,0,19.886,0,31.15c0,11.264,9.216,20.48,20.48,20.48h41.472c2.56,0,4.608,2.048,5.12,4.608l31.744,216.064
-                         c4.096,27.136,27.648,47.616,55.296,47.616h212.992c26.624,0,49.664-18.944,55.296-45.056l33.28-166.4
-                         C457.728,97.71,450.56,86.958,439.296,84.91z" />
-                          </g>
-                        </g>
-                        <g>
-                          <g>
-                            <path d="M215.04,389.55c-1.024-28.16-24.576-50.688-52.736-50.688c-29.696,1.536-52.224,26.112-51.2,55.296
-                         c1.024,28.16,24.064,50.688,52.224,50.688h1.024C193.536,443.31,216.576,418.734,215.04,389.55z" />
-                          </g>
-                        </g>
-                        <g>
-                        </g>
-                        <g>
-                        </g>
-                        <g>
-                        </g>
-                        <g>
-                        </g>
-                        <g>
-                        </g>
-                        <g>
-                        </g>
-                        <g>
-                        </g>
-                        <g>
-                        </g>
-                        <g>
-                        </g>
-                        <g>
-                        </g>
-                        <g>
-                        </g>
-                        <g>
-                        </g>
-                        <g>
-                        </g>
-                        <g>
-                        </g>
-                        <g>
-                        </g>
-                      </svg>
-                    </a>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="col-sm-6 col-lg-4 all burger">
-            <div class="box">
-              <div>
-                <div class="img-box">
-                  <img src="imagens/f8.png" alt="">
-                </div>
-                <div class="detail-box">
-                  <h5>
-                    Pizza
-                  </h5>
-                  <p>
-                    Veniam debitis quaerat officiis quasi cupiditate quo, quisquam velit, magnam voluptatem repellendus sed eaque
-                  </p>
-                  <div class="options">
-                    <h6>
-                      R$ 14,00
-                    </h6>
-                    <a href="">
-                      <svg version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 456.029 456.029" style="enable-background:new 0 0 456.029 456.029;" xml:space="preserve">
-                        <g>
-                          <g>
-                            <path d="M345.6,338.862c-29.184,0-53.248,23.552-53.248,53.248c0,29.184,23.552,53.248,53.248,53.248
-                         c29.184,0,53.248-23.552,53.248-53.248C398.336,362.926,374.784,338.862,345.6,338.862z" />
-                          </g>
-                        </g>
-                        <g>
-                          <g>
-                            <path d="M439.296,84.91c-1.024,0-2.56-0.512-4.096-0.512H112.64l-5.12-34.304C104.448,27.566,84.992,10.67,61.952,10.67H20.48
-                         C9.216,10.67,0,19.886,0,31.15c0,11.264,9.216,20.48,20.48,20.48h41.472c2.56,0,4.608,2.048,5.12,4.608l31.744,216.064
-                         c4.096,27.136,27.648,47.616,55.296,47.616h212.992c26.624,0,49.664-18.944,55.296-45.056l33.28-166.4
-                         C457.728,97.71,450.56,86.958,439.296,84.91z" />
-                          </g>
-                        </g>
-                        <g>
-                          <g>
-                            <path d="M215.04,389.55c-1.024-28.16-24.576-50.688-52.736-50.688c-29.696,1.536-52.224,26.112-51.2,55.296
-                         c1.024,28.16,24.064,50.688,52.224,50.688h1.024C193.536,443.31,216.576,418.734,215.04,389.55z" />
-                          </g>
-                        </g>
-                        <g>
-                        </g>
-                        <g>
-                        </g>
-                        <g>
-                        </g>
-                        <g>
-                        </g>
-                        <g>
-                        </g>
-                        <g>
-                        </g>
-                        <g>
-                        </g>
-                        <g>
-                        </g>
-                        <g>
-                        </g>
-                        <g>
-                        </g>
-                        <g>
-                        </g>
-                        <g>
-                        </g>
-                        <g>
-                        </g>
-                        <g>
-                        </g>
-                        <g>
-                        </g>
-                      </svg>
-                    </a>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="col-sm-6 col-lg-4 all pasta">
-            <div class="box">
-              <div>
-                <div class="img-box">
-                  <img src="imagens/f9.png" alt="">
-                </div>
-                <div class="detail-box">
-                  <h5>
-                    Lanches
-                  </h5>
-                  <p>
-                    Veniam debitis quaerat officiis quasi cupiditate quo, quisquam velit, magnam voluptatem repellendus sed eaque
-                  </p>
-                  <div class="options">
-                    <h6>
-                      R$10
-                    </h6>
-                    <a href="">
-                      <svg version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 456.029 456.029" style="enable-background:new 0 0 456.029 456.029;" xml:space="preserve">
-                        <g>
-                          <g>
-                            <path d="M345.6,338.862c-29.184,0-53.248,23.552-53.248,53.248c0,29.184,23.552,53.248,53.248,53.248
-                         c29.184,0,53.248-23.552,53.248-53.248C398.336,362.926,374.784,338.862,345.6,338.862z" />
-                          </g>
-                        </g>
-                        <g>
-                          <g>
-                            <path d="M439.296,84.91c-1.024,0-2.56-0.512-4.096-0.512H112.64l-5.12-34.304C104.448,27.566,84.992,10.67,61.952,10.67H20.48
-                         C9.216,10.67,0,19.886,0,31.15c0,11.264,9.216,20.48,20.48,20.48h41.472c2.56,0,4.608,2.048,5.12,4.608l31.744,216.064
-                         c4.096,27.136,27.648,47.616,55.296,47.616h212.992c26.624,0,49.664-18.944,55.296-45.056l33.28-166.4
-                         C457.728,97.71,450.56,86.958,439.296,84.91z" />
-                          </g>
-                        </g>
-                        <g>
-                          <g>
-                            <path d="M215.04,389.55c-1.024-28.16-24.576-50.688-52.736-50.688c-29.696,1.536-52.224,26.112-51.2,55.296
-                         c1.024,28.16,24.064,50.688,52.224,50.688h1.024C193.536,443.31,216.576,418.734,215.04,389.55z" />
-                          </g>
-                        </g>
-                        <g>
-                        </g>
-                        <g>
-                        </g>
-                        <g>
-                        </g>
-                        <g>
-                        </g>
-                        <g>
-                        </g>
-                        <g>
-                        </g>
-                        <g>
-                        </g>
-                        <g>
-                        </g>
-                        <g>
-                        </g>
-                        <g>
-                        </g>
-                        <g>
-                        </g>
-                        <g>
-                        </g>
-                        <g>
-                        </g>
-                        <g>
-                        </g>
-                        <g>
-                        </g>
-                      </svg>
-                    </a>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="btn-box">
-        <a href="">
-          Ver Mais
-        </a>
-      </div>
+      <button class="checkout-btn" onclick="finalizeOrder()">Finalizar Pedido no WhatsApp</button>
+      <button class="clear-btn" onclick="clearCart()">Limpar Carrinho</button>
     </div>
-  </section>
+  </div>
+</section>
 
+<div class="whatsapp-float">
+  <a href="https://wa.me/5514999993333?text=Olá!%20Quero%20fazer%20um%20pedido" target="_blank">
+    <i class="uil uil-whatsapp"></i>
+  </a>
+</div>
 
-  <!-- about section -->
-
-  <section class="about_section layout_padding">
-    <div class="container  ">
-
-      <div class="row">
-        <div class="col-md-6 ">
-          <div class="img-box">
-            <img src="imagens/about-img.png" alt="">
-          </div>
-        </div>
-        <div class="col-md-6">
-          <div class="detail-box">
-            <div class="heading_container">
-              <h2>
-                A Oba Pizzaria
-              </h2>
-            </div>
-            <p>
-              There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration
-              in some form, by injected humour, or randomised words which don't look even slightly believable. If you
-              are going to use a passage of Lorem Ipsum, you need to be sure there isn't anything embarrassing hidden in
-              the middle of text. All
-            </p>
-            <a href="">
-              + Info
-            </a>
-          </div>
-        </div>
-      </div>
+<footer>
+  <div class="container">
+    <div class="social">
+      <a href="#"><i class="uil uil-facebook-f"></i></a>
+      <a href="#"><i class="uil uil-instagram"></i></a>
+      <a href="#"><i class="uil uil-whatsapp"></i></a>
     </div>
-  </section>
+    <p>© <script>document.write(new Date().getFullYear())</script> Oba Pizzaria - Bauru/SP</p>
+  </div>
+</footer>
 
-  <!-- end about section -->
+<script>
+// Configuração dos cupons válidos + data de expiração (YYYY-MM-DD)
+const coupons = {
+  '20OFF':    { type: 'percent', value: 20, expires: '2025-12-31' },
+  '10REAL':   { type: 'fixed',   value: 10, expires: '2025-12-31' },
+  'PRIMEIRA': { type: 'percent', value: 15, expires: '2025-06-30' },
+  'OBAPIZZA': { type: 'fixed',   value: 8,  expires: '2025-03-31' },
+  'QUINZENA': { type: 'percent', value: 10, expires: '2025-02-28' }
+};
 
-  <!-- book section -->
-  <section class="book_section layout_padding">
-    <div class="container">
-      <div class="heading_container">
-        <h2>
-          Reservas
-        </h2>
+let cart = JSON.parse(localStorage.getItem('cart')) || [];
+let appliedCoupon = localStorage.getItem('appliedCoupon') || null;
+
+function isCouponValid(code) {
+  const coupon = coupons[code];
+  if (!coupon) return false;
+
+  const today = new Date();
+  const expiresDate = new Date(coupon.expires);
+  return today <= expiresDate;
+}
+
+function updateCartDisplay() {
+  const cartItemsDiv = document.getElementById('cartItems');
+  const cartEmptyDiv = document.getElementById('cartEmpty');
+  const cartSummaryDiv = document.getElementById('cartSummary');
+  const cartCountHeader = document.getElementById('cartCountHeader');
+
+  cartItemsDiv.innerHTML = '';
+  let subtotal = 0;
+
+  if (cart.length === 0) {
+    cartItemsDiv.style.display = 'none';
+    cartEmptyDiv.style.display = 'block';
+    cartSummaryDiv.style.display = 'none';
+    cartCountHeader.textContent = '0';
+    resetCoupon();
+    return;
+  }
+
+  cartEmptyDiv.style.display = 'none';
+  cartItemsDiv.style.display = 'block';
+  cartSummaryDiv.style.display = 'block';
+
+  cart.forEach((item, index) => {
+    const itemTotal = item.price * item.quantity;
+    subtotal += itemTotal;
+
+    const itemElement = document.createElement('div');
+    itemElement.className = 'cart-item';
+    itemElement.innerHTML = `
+      <img src="imagens/placeholder.jpg" alt="${item.name}" loading="lazy">
+      <div class="item-info">
+        <h4>${item.name}</h4>
+        <div class="price">R$ ${item.price.toFixed(2)}</div>
       </div>
-      <div class="row">
-        <div class="col-md-6">
-          <div class="form_container">
-            <form action="">
-              <div>
-                <input type="text" class="form-control" placeholder="Nome" />
-              </div>
-              <div>
-                <input type="text" class="form-control" placeholder="Número De Contato" />
-              </div>
-              <div>
-                <input type="email" class="form-control" placeholder="Seu Melhor Email" />
-              </div>
-              <div>
-                <select class="form-control nice-select wide">
-                  <option value="" disabled selected>
-                    Mesa Para Quantos?
-                  </option>
-                  <option value="">
-                    2
-                  </option>
-                  <option value="">
-                    3
-                  </option>
-                  <option value="">
-                    4
-                  </option>
-                  <option value="">
-                    5
-                  </option>
-                </select>
-              </div>
-              <div>
-                <input type="date" class="form-control">
-              </div>
-              <div class="btn_box">
-                <button>
-                  Reservar
-                </button>
-              </div>
-            </form>
-          </div>
-        </div>
-        <div class="col-md-6">
-          <div class="map_container ">
-            <div id="googleMap"></div>
-          </div>
-        </div>
+      <div class="quantity">
+        <button onclick="changeQuantity(${index}, -1)">–</button>
+        <span>${item.quantity}</span>
+        <button onclick="changeQuantity(${index}, 1)">+</button>
       </div>
-    </div>
-  </section>
-  <!-- end book section -->
+      <div style="font-weight:600">R$ ${itemTotal.toFixed(2)}</div>
+      <button class="remove-btn" onclick="removeItem(${index})">🗑️</button>
+    `;
+    cartItemsDiv.appendChild(itemElement);
+  });
 
-  <!-- client section -->
+  applyCouponToTotal(subtotal);
+  cartCountHeader.textContent = cart.reduce((sum, i) => sum + i.quantity, 0);
+}
 
-  <section class="client_section layout_padding-bottom">
-    <div class="container">
-      <div class="heading_container heading_center psudo_white_primary mb_45">
-        <h2>
-          Formas De Pagamento
-        </h2>
-      </div>
-      <div class="carousel-wrap row ">
-        <div class="owl-carousel client_owl-carousel">
+function applyCouponToTotal(subtotal) {
+  let discount = 0;
+  let discountText = '';
 
-          <div class="item">
-            <div class="box">
-              <div class="detail-box">
-                <h6>
-                  Dinheiro
-                </h6>
-                <p>
-                  Dinheiro Em Espécie
-                </p>
-              </div>
-              <div class="img-box">
-                <img src="imagens/pagamento1.png" alt="" class="box-img">
-              </div>
-            </div>
-          </div>
+  if (appliedCoupon && isCouponValid(appliedCoupon)) {
+    const coupon = coupons[appliedCoupon];
+    if (coupon.type === 'percent') {
+      discount = subtotal * (coupon.value / 100);
+      discountText = `${coupon.value}% OFF (-R$ ${discount.toFixed(2)})`;
+    } else if (coupon.type === 'fixed') {
+      discount = coupon.value;
+      discountText = `R$ ${coupon.value.toFixed(2)} OFF`;
+    }
+  } else if (appliedCoupon) {
+    // Cupom expirado → limpa automaticamente
+    resetCoupon();
+  }
 
-          <div class="item">
-            <div class="box">
-              <div class="detail-box">
-                <h6>
-                  Cartão De Crédito
-                </h6>
-                <p>
-                   Master | Visa | Hiper | Elo 
-                </p>
-              </div>
-              <div class="img-box">
-                <img src="imagens/pagamento3.png" alt="" class="box-img">
-              </div>
-            </div>
-          </div>
+  const total = Math.max(0, subtotal - discount);
 
-          <div class="item">
-            <div class="box">
-              <div class="detail-box">
-                <h6>
-                  Cartão De Dédito
-                </h6>
-                <p>
-                   Master | Visa | Hiper | Elo 
-                </p>
-              </div>
-              <div class="img-box">
-                <img src="imagens/pagamento3.png" alt="" class="box-img">
-              </div>
-            </div>
-          </div>
+  document.getElementById('cartTotal').textContent = `R$ ${total.toFixed(2)}`;
 
-          <div class="item">
-            <div class="box">
-              <div class="detail-box">
-                <h6>
-                  Vale
-                </h6>
-                <p>
-                   Alelo | VisaVale | Sodexo  
-                </p>
-              </div>
-              <div class="img-box">
-                <img src="imagens/pagamento2.png" alt="" class="box-img">
-              </div>
-            </div>
-          </div>
+  const discountRow = document.getElementById('discountRow');
+  const discountValue = document.getElementById('discountValue');
+  if (discount > 0) {
+    discountRow.style.display = 'flex';
+    discountValue.textContent = discountText;
+  } else {
+    discountRow.style.display = 'none';
+  }
+}
 
+function applyCoupon() {
+  const codeInput = document.getElementById('couponCode');
+  const messageDiv = document.getElementById('couponMessage');
+  const code = codeInput.value.trim().toUpperCase();
 
+  messageDiv.className = 'coupon-message';
+  messageDiv.textContent = '';
 
-        </div>
-      </div>
-    </div>
-  </section>
+  if (!code) {
+    messageDiv.classList.add('error');
+    messageDiv.textContent = 'Digite um código válido.';
+    return;
+  }
 
-  <!-- end client section -->
+  if (!coupons[code]) {
+    messageDiv.classList.add('error');
+    messageDiv.textContent = 'Cupom inválido.';
+    return;
+  }
 
-  <!-- footer section -->
-  <footer class="footer_section">
-    <div class="container">
-      <div class="row">
-        <div class="col-md-4 footer-col">
-          <div class="footer_contact">
-            <h4>
-              
-            </h4>
-            <div class="contact_link_box">
-              <a href="">
-                <i class="fa fa-map-marker" aria-hidden="true"></i>
-                <span>
-                  
-                </span>
-              </a>
-              <a href="">
-                <i class="fa fa-phone" aria-hidden="true"></i>
-                <span>
-                  
-                </span>
-              </a>
-              <a href="">
-                <i class="fa fa-envelope" aria-hidden="true"></i>
-                <span>
-                  
-                </span>
-              </a>
-            </div>
-          </div>
-        </div>
-        <div class="col-md-4 footer-col">
-          <div class="footer_detail">
-            <a href="" class="footer-logo">
-              Fale Conosco
-            </a>
-            <p>
-              Necessary, making this the first true generator on the Internet. It uses a dictionary of over 200 Latin words, combined with
-            </p>
-            <div class="footer_social">
-              <a href="https://github.com/MQJogos" target="_blank">
-                <i class="ph ph-github-logo"></i>
-              </a>
+  if (!isCouponValid(code)) {
+    messageDiv.classList.add('warning');
+    messageDiv.textContent = `O cupom ${code} expirou.`;
+    return;
+  }
 
-              <a href="https://www.instagram.com/mqjogos/" target="_blank">
-                <i class="ph ph-instagram-logo"></i>
-              </a>
+  appliedCoupon = code;
+  localStorage.setItem('appliedCoupon', code);
+  messageDiv.classList.add('success');
+  messageDiv.textContent = `Cupom ${code} aplicado com sucesso!`;
 
-              <a href="https://www.linkedin.com/in/debora-inocencio/" target="_blank">
-                <i class="ph ph-linkedin-logo"></i>
-              </a>
+  updateCartDisplay();
+  codeInput.value = '';
+}
 
-              <a href="https://www.youtube.com/channel/UCfEsOEx_t6hiIms8HzttxOw/featured" target="_blank">
-                <i class="ph ph-youtube-logo"></i>
-              </a>
+function resetCoupon() {
+  appliedCoupon = null;
+  localStorage.removeItem('appliedCoupon');
+  document.getElementById('couponMessage').textContent = '';
+  document.getElementById('discountRow').style.display = 'none';
+}
 
-              <a href="https://br.pinterest.com/mqjogos/">
-                <i class="ph ph-pinterest-logo" target="_blank"></i>
-              </a>
-            </div>
-          </div>
-        </div>
-        <div class="col-md-4 footer-col">
-          <h4>
-            
-          </h4>
-          <p>
-            
-          </p>
-          <p>
-            
-          </p>
-        </div>
-      </div>
-      <div class="footer-info">
-        <p>
-          &copy; <span id="displayYear"></span>
-          <a href="https://html.design/">MQJogos</a><br><br>
-        </p>
-      </div>
-    </div>
-  </footer>
-  <!-- footer section -->
+function changeQuantity(index, delta) {
+  cart[index].quantity += delta;
+  if (cart[index].quantity <= 0) {
+    cart.splice(index, 1);
+  }
+  localStorage.setItem('cart', JSON.stringify(cart));
+  updateCartDisplay();
+}
 
-  <!-- jQery -->
-  <script src="js/jquery-3.4.1.min.js"></script>
-  <!-- popper js -->
-  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous">
-  </script>
-  <!-- bootstrap js -->
-  <script src="js/bootstrap.js"></script>
-  <!-- owl slider -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js">
-  </script>
-  <!-- isotope js -->
-  <script src="https://unpkg.com/isotope-layout@3.0.4/dist/isotope.pkgd.min.js"></script>
-  <!-- nice select -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-nice-select/1.1.0/js/jquery.nice-select.min.js"></script>
-  <!-- custom js -->
-  <script src="js/custom.js"></script>
-  <!-- Google Map -->
-  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCh39n5U-4IoWpsVGUHWdqB6puEkhRLdmI&callback=myMap">
-  </script>
-  <!-- End Google Map -->
+function removeItem(index) {
+  cart.splice(index, 1);
+  localStorage.setItem('cart', JSON.stringify(cart));
+  updateCartDisplay();
+}
 
-  <script src="https://unpkg.com/@phosphor-icons/web"></script>
+function clearCart() {
+  if (confirm('Tem certeza que deseja limpar todo o carrinho?')) {
+    cart = [];
+    localStorage.setItem('cart', JSON.stringify(cart));
+    resetCoupon();
+    updateCartDisplay();
+  }
+}
+
+function finalizeOrder() {
+  if (cart.length === 0) {
+    alert('Seu carrinho está vazio!');
+    return;
+  }
+
+  let message = 'Olá Oba Pizzaria! Quero fazer o seguinte pedido:\n\n';
+  let subtotal = 0;
+  let discount = 0;
+
+  cart.forEach(item => {
+    const itemTotal = item.price * item.quantity;
+    message += `${item.quantity}x ${item.name} - R$ ${itemTotal.toFixed(2)}\n`;
+    subtotal += itemTotal;
+  });
+
+  if (appliedCoupon && isCouponValid(appliedCoupon)) {
+    const coupon = coupons[appliedCoupon];
+    if (coupon.type === 'percent') {
+      discount = subtotal * (coupon.value / 100);
+      message += `\nCupom ${appliedCoupon}: ${coupon.value}% OFF (-R$ ${discount.toFixed(2)})\n`;
+    } else {
+      discount = coupon.value;
+      message += `\nCupom ${appliedCoupon}: R$ ${coupon.value.toFixed(2)} OFF\n`;
+    }
+  }
+
+  const total = Math.max(0, subtotal - discount);
+  message += `\nSubtotal: R$ ${subtotal.toFixed(2)}`;
+  if (discount > 0) message += `\nDesconto: -R$ ${discount.toFixed(2)}`;
+  message += `\nTotal: R$ ${total.toFixed(2)}\n\nEndereço de entrega: [insira seu endereço]\nForma de pagamento: [escolha]`;
+
+  const whatsappUrl = `https://wa.me/5514999993333?text=${encodeURIComponent(message)}`;
+  window.open(whatsappUrl, '_blank');
+}
+
+// Inicialização
+updateCartDisplay();
+
+// Carregar cupom salvo (se existir e ainda válido)
+const savedCoupon = localStorage.getItem('appliedCoupon');
+if (savedCoupon && isCouponValid(savedCoupon)) {
+  appliedCoupon = savedCoupon;
+} else if (savedCoupon) {
+  resetCoupon(); // Remove cupom expirado
+}
+
+// Menu mobile
+document.querySelector('.menu-btn').onclick = () => {
+  document.querySelector('.menu-btn').classList.toggle('active');
+  document.querySelector('nav ul').classList.toggle('active');
+};
+</script>
 </body>
-
 </html>
-"
-```
