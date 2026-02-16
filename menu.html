@@ -1,968 +1,304 @@
 <!DOCTYPE html>
-<html lang= "pt-br">
-
+<html lang="pt-br">
 <head>
-  <!-- Basic -->
-  <meta charset="utf-8" />
-  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <!-- Mobile Metas -->
-  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
-  <!-- Site Metas -->
-  <meta name="keywords" content="" />
-  <meta name="description" content="" />
-  <meta name="author" content="" />
-  <link rel="shortcut icon" href="imagens/favicon.ico" type="image/x-icon">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title> Cardápio - Oba Pizzaria & Restaurante </title>
+  <meta name="description" content="Confira nosso cardápio completo: pizzas, massas, lanches, bebidas e promoções. Peça agora!">
 
-  <title> ObaPizzaria </title>
+  <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.0/css/line.css">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
 
-  <!-- bootstrap core css -->
-  <link rel="stylesheet" type="text/css" href="css/bootstrap.css" />
+  <style>
+    :root{--primary:#ff6b35;--dark:#222;--light:#fff;--gray:#666;--success:#28a745}
+    *{margin:0;padding:0;box-sizing:border-box}
+    body{font-family:'Poppins',sans-serif;background:#f9f9f9;color:var(--dark);line-height:1.6}
+    .container{max-width:1400px;margin:0 auto;padding:0 15px}
 
-  <!--owl slider stylesheet -->
-  <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.min.css" />
-  <!-- nice select  -->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-nice-select/1.1.0/css/nice-select.min.css" integrity="sha512-CruCP+TD3yXzlvvijET8wV5WxxEh5H8P4cmz0RFbKK6FlZ2sYl3AEsKlLPHbniXKSrDdFewhbmBK5skbdsASbQ==" crossorigin="anonymous" />
-  <!-- font awesome style -->
-  <link href="css/font-awesome.min.css" rel="stylesheet" />
+    header{position:fixed;top:0;left:0;width:100%;background:rgba(255,255,255,0.95);backdrop-filter:blur(10px);box-shadow:0 2px 10px rgba(0,0,0,0.08);z-index:1000}
+    .nav{display:flex;justify-content:space-between;align-items:center;padding:1rem 0}
+    .logo{font-size:1.8rem;font-weight:700;color:var(--primary)}
+    .menu-btn{display:none;flex-direction:column;gap:5px;width:35px;cursor:pointer}
+    .menu-btn span{height:3px;background:var(--dark);transition:.4s}
+    nav ul{display:flex;list-style:none;gap:1.5rem;align-items:center}
+    nav a{color:var(--dark);text-decoration:none;font-weight:600}
+    nav a:hover{color:var(--primary)}
+    .cart-icon{position:relative;font-size:1.6rem;cursor:pointer}
+    .cart-count{position:absolute;top:-8px;right:-12px;background:var(--primary);color:white;font-size:0.7rem;font-weight:bold;border-radius:50%;width:20px;height:20px;display:flex;align-items:center;justify-content:center}
 
-  <!-- Custom styles for this template -->
-  <link href="css/style.css" rel="stylesheet" />
-  <!-- responsive style -->
-  <link href="css/responsive.css" rel="stylesheet" />
+    section{padding:80px 0}
+    h2{text-align:center;font-size:clamp(2rem,6vw,3.5rem);margin-bottom:2.5rem}
 
+    .filters_menu{display:flex;justify-content:center;flex-wrap:wrap;gap:1rem;margin:2rem 0;list-style:none}
+    .filters_menu li{padding:0.6rem 1.3rem;border-radius:50px;background:#eee;cursor:pointer;transition:.3s}
+    .filters_menu li.active,.filters_menu li:hover{background:var(--primary);color:white}
+
+    .menu-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:1.8rem}
+    .menu-item{display:none;background:white;border-radius:12px;overflow:hidden;box-shadow:0 4px 12px rgba(0,0,0,0.08);transition:.3s;flex-direction:column}
+    .menu-item.show{display:flex}
+    .menu-item:hover{transform:translateY(-6px)}
+    .menu-item img{width:100%;height:180px;object-fit:cover}
+    .menu-body{padding:1.2rem;text-align:center;flex-grow:1;display:flex;flex-direction:column}
+    .menu-body h5{display:flex;align-items:center;justify-content:center;gap:0.5rem;margin-bottom:0.5rem;font-size:1.2rem}
+    .menu-body .icon{font-size:1.4rem}
+    .menu-body p{font-size:0.9rem;color:#555;margin:0.6rem 0 1rem;flex-grow:1}
+    .menu-body .preco{color:var(--primary);font-weight:700;font-size:1.3rem;margin-bottom:1rem}
+    .add-btn{background:var(--success);color:white;border:none;padding:0.8rem;border-radius:50px;cursor:pointer;font-weight:600;transition:.3s;width:100%}
+    .add-btn:hover{background:#218838;transform:translateY(-2px)}
+
+    footer{background:var(--dark);color:white;text-align:center;padding:3rem 0 1.5rem}
+    .social a{color:white;font-size:1.8rem;margin:0 1rem}
+
+    .whatsapp-float{position:fixed;bottom:20px;right:20px;z-index:9999}
+    .whatsapp-float a{display:flex;align-items:center;justify-content:center;width:60px;height:60px;background:#25D366;color:white;border-radius:50%;font-size:2rem;box-shadow:0 4px 15px rgba(37,211,102,0.4);transition:.3s}
+    .whatsapp-float a:hover{transform:scale(1.1)}
+
+    @media (max-width:991px){
+      .menu-btn{display:flex}
+      nav ul{position:fixed;inset:0;background:rgba(255,255,255,0.98);backdrop-filter:blur(10px);flex-direction:column;justify-content:center;align-items:center;transform:translateY(-100%);transition:.4s;z-index:999}
+      nav ul.active{transform:translateY(0)}
+      .menu-btn.active span:nth-child(1){transform:rotate(45deg) translate(8px,8px)}
+      .menu-btn.active span:nth-child(2){opacity:0}
+      .menu-btn.active span:nth-child(3){transform:rotate(-45deg) translate(7px,-7px)}
+    }
+
+    @media (max-width:576px){
+      section{padding:50px 0}
+      .menu-grid{grid-template-columns:1fr}
+    }
+  </style>
 </head>
+<body>
 
-<body class="sub_page">
-
-  <div class="hero_area">
-    <div class="bg-box">
-      <img src="imagens/bg.jpg" alt="">
+<header>
+  <div class="container">
+    <div class="nav">
+      <div class="logo">Oba Pizzaria & Restaurante </div>
+      <button class="menu-btn"><span></span><span></span><span></span></button>
+      <nav>
+        <ul>
+          <li><a href="app.html">Início</a></li>
+          <li><a href="menu.html">Cardápio</a></li>
+          <li><a href="about.html">Sobre</a></li>
+          <li><a href="menu.html">Reservas</a></li>
+          <li><span class="cart-icon">🛒 <span class="cart-count" id="cartCount">0</span></span></li>
+        </ul>
+      </nav>
     </div>
-    <!-- header section strats -->
-    <header class="header_section">
-      <div class="container">
-        <nav class="navbar navbar-expand-lg custom_nav-container ">
-          <a class="navbar-brand" href="index.html">
-            <span>
-              ObaPizaria
-            </span>
-          </a>
-
-          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-            <span class=""> </span>
-          </button>
-
-          <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            <ul class="navbar-nav  mx-auto ">
-              <li class="nav-item">
-                <a class="nav-link" href="app.html">Início </a>
-              </li>
-              <li class="nav-item active">
-                <a class="nav-link" href="menu.html">Cardápio <span class="sr-only">(current)</span> </a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="about.html">A Oba Pizzaria</a>
-              </li>
-              <!-- INÍCIO DO CARRINHO -->
-              <div class="user_option">
-              <a href="" class="user_link">
-                <i class="fa fa-user" aria-hidden="true"></i>
-              </a>
-              <a class="cart_link" href="#">
-                <svg version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 456.029 456.029" style="enable-background:new 0 0 456.029 456.029;" xml:space="preserve">
-                  <g>
-                    <g>
-                      <path d="M345.6,338.862c-29.184,0-53.248,23.552-53.248,53.248c0,29.184,23.552,53.248,53.248,53.248
-                   c29.184,0,53.248-23.552,53.248-53.248C398.336,362.926,374.784,338.862,345.6,338.862z" />
-                    </g>
-                  </g>
-                  <g>
-                    <g>
-                      <path d="M439.296,84.91c-1.024,0-2.56-0.512-4.096-0.512H112.64l-5.12-34.304C104.448,27.566,84.992,10.67,61.952,10.67H20.48
-                   C9.216,10.67,0,19.886,0,31.15c0,11.264,9.216,20.48,20.48,20.48h41.472c2.56,0,4.608,2.048,5.12,4.608l31.744,216.064
-                   c4.096,27.136,27.648,47.616,55.296,47.616h212.992c26.624,0,49.664-18.944,55.296-45.056l33.28-166.4
-                   C457.728,97.71,450.56,86.958,439.296,84.91z" />
-                    </g>
-                  </g>
-                  <g>
-                    <g>
-                      <path d="M215.04,389.55c-1.024-28.16-24.576-50.688-52.736-50.688c-29.696,1.536-52.224,26.112-51.2,55.296
-                   c1.024,28.16,24.064,50.688,52.224,50.688h1.024C193.536,443.31,216.576,418.734,215.04,389.55z" />
-                    </g>
-                  </g>
-                  <g>
-                  </g>
-                  <g>
-                  </g>
-                  <g>
-                  </g>
-                  <g>
-                  </g>
-                  <g>
-                  </g>
-                  <g>
-                  </g>
-                  <g>
-                  </g>
-                  <g>
-                  </g>
-                  <g>
-                  </g>
-                  <g>
-                  </g>
-                  <g>
-                  </g>
-                  <g>
-                  </g>
-                  <g>
-                  </g>
-                  <g>
-                  </g>
-                  <g>
-                  </g>
-                </svg>
-              </a>
-              <!-- FIM DO CARRINHO -->
-
-            </ul>
-            
-              <form class="form-inline">
-                <button class="btn  my-2 my-sm-0 nav_search-btn" type="submit">
-                  <i class="fa fa-search" aria-hidden="true"></i>
-                </button>
-              </form>
-             
-            </div>
-          </div>
-        </nav>
-      </div>
-    </header>
-    <!-- end header section -->
   </div>
+</header>
 
-  <!-- food section -->
+<section class="food_section">
+  <div class="container">
+    <h2>Nosso Cardápio</h2>
 
-  <section class="food_section layout_padding">
-    <div class="container">
-      <div class="heading_container heading_center">
-        <h2>
-          Cardápio
-        </h2>
-      </div>
+    <ul class="filters_menu">
+      <li class="active" data-filter="all">Todos</li>
+      <li data-filter="pizza">Pizzas</li>
+      <li data-filter="massa">Massas</li>
+      <li data-filter="lanche">Lanches</li>
+      <li data-filter="bebida">Bebidas</li>
+    </ul>
 
-      <ul class="filters_menu">
-        <li class="active" data-filter="*">Todos</li>
-        <li data-filter=".burger">Pizzas</li>
-        <li data-filter=".pizza">Massas</li>
-        <li data-filter=".pasta">Lanches</li>
-        <li data-filter=".fries">Bebidas</li>
-      </ul>
+    <div class="menu-grid">
 
-      <div class="filters-content">
-        <div class="row grid">
-          <div class="col-sm-6 col-lg-4 all pizza">
-            <div class="box">
-              <div>
-                <div class="img-box">
-                  <img src="imagens/f1.png" alt="">
-                </div>
-                <div class="detail-box">
-                  <h5>
-                    Massa
-                  </h5>
-                  <p>
-                    Veniam debitis quaerat officiis quasi cupiditate quo, quisquam velit, magnam voluptatem repellendus sed eaque
-                  </p>
-                  <div class="options">
-                    <h6>
-                      $20
-                    </h6>
-                    <a href="">
-                      <svg version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 456.029 456.029" style="enable-background:new 0 0 456.029 456.029;" xml:space="preserve">
-                        <g>
-                          <g>
-                            <path d="M345.6,338.862c-29.184,0-53.248,23.552-53.248,53.248c0,29.184,23.552,53.248,53.248,53.248
-                         c29.184,0,53.248-23.552,53.248-53.248C398.336,362.926,374.784,338.862,345.6,338.862z" />
-                          </g>
-                        </g>
-                        <g>
-                          <g>
-                            <path d="M439.296,84.91c-1.024,0-2.56-0.512-4.096-0.512H112.64l-5.12-34.304C104.448,27.566,84.992,10.67,61.952,10.67H20.48
-                         C9.216,10.67,0,19.886,0,31.15c0,11.264,9.216,20.48,20.48,20.48h41.472c2.56,0,4.608,2.048,5.12,4.608l31.744,216.064
-                         c4.096,27.136,27.648,47.616,55.296,47.616h212.992c26.624,0,49.664-18.944,55.296-45.056l33.28-166.4
-                         C457.728,97.71,450.56,86.958,439.296,84.91z" />
-                          </g>
-                        </g>
-                        <g>
-                          <g>
-                            <path d="M215.04,389.55c-1.024-28.16-24.576-50.688-52.736-50.688c-29.696,1.536-52.224,26.112-51.2,55.296
-                         c1.024,28.16,24.064,50.688,52.224,50.688h1.024C193.536,443.31,216.576,418.734,215.04,389.55z" />
-                          </g>
-                        </g>
-                        <g>
-                        </g>
-                        <g>
-                        </g>
-                        <g>
-                        </g>
-                        <g>
-                        </g>
-                        <g>
-                        </g>
-                        <g>
-                        </g>
-                        <g>
-                        </g>
-                        <g>
-                        </g>
-                        <g>
-                        </g>
-                        <g>
-                        </g>
-                        <g>
-                        </g>
-                        <g>
-                        </g>
-                        <g>
-                        </g>
-                        <g>
-                        </g>
-                        <g>
-                        </g>
-                      </svg>
-                    </a>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="col-sm-6 col-lg-4 all burger">
-            <div class="box">
-              <div>
-                <div class="img-box">
-                  <img src="imagens/f2.png" alt="">
-                </div>
-                <div class="detail-box">
-                  <h5>
-                    Pizza
-                  </h5>
-                  <p>
-                    Veniam debitis quaerat officiis quasi cupiditate quo, quisquam velit, magnam voluptatem repellendus sed eaque
-                  </p>
-                  <div class="options">
-                    <h6>
-                      $15
-                    </h6>
-                    <a href="">
-                      <svg version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 456.029 456.029" style="enable-background:new 0 0 456.029 456.029;" xml:space="preserve">
-                        <g>
-                          <g>
-                            <path d="M345.6,338.862c-29.184,0-53.248,23.552-53.248,53.248c0,29.184,23.552,53.248,53.248,53.248
-                         c29.184,0,53.248-23.552,53.248-53.248C398.336,362.926,374.784,338.862,345.6,338.862z" />
-                          </g>
-                        </g>
-                        <g>
-                          <g>
-                            <path d="M439.296,84.91c-1.024,0-2.56-0.512-4.096-0.512H112.64l-5.12-34.304C104.448,27.566,84.992,10.67,61.952,10.67H20.48
-                         C9.216,10.67,0,19.886,0,31.15c0,11.264,9.216,20.48,20.48,20.48h41.472c2.56,0,4.608,2.048,5.12,4.608l31.744,216.064
-                         c4.096,27.136,27.648,47.616,55.296,47.616h212.992c26.624,0,49.664-18.944,55.296-45.056l33.28-166.4
-                         C457.728,97.71,450.56,86.958,439.296,84.91z" />
-                          </g>
-                        </g>
-                        <g>
-                          <g>
-                            <path d="M215.04,389.55c-1.024-28.16-24.576-50.688-52.736-50.688c-29.696,1.536-52.224,26.112-51.2,55.296
-                         c1.024,28.16,24.064,50.688,52.224,50.688h1.024C193.536,443.31,216.576,418.734,215.04,389.55z" />
-                          </g>
-                        </g>
-                        <g>
-                        </g>
-                        <g>
-                        </g>
-                        <g>
-                        </g>
-                        <g>
-                        </g>
-                        <g>
-                        </g>
-                        <g>
-                        </g>
-                        <g>
-                        </g>
-                        <g>
-                        </g>
-                        <g>
-                        </g>
-                        <g>
-                        </g>
-                        <g>
-                        </g>
-                        <g>
-                        </g>
-                        <g>
-                        </g>
-                        <g>
-                        </g>
-                        <g>
-                        </g>
-                      </svg>
-                    </a>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="col-sm-6 col-lg-4 all pizza">
-            <div class="box">
-              <div>
-                <div class="img-box">
-                  <img src="imagens/f3.png" alt="">
-                </div>
-                <div class="detail-box">
-                  <h5>
-                    Massa
-                  </h5>
-                  <p>
-                    Veniam debitis quaerat officiis quasi cupiditate quo, quisquam velit, magnam voluptatem repellendus sed eaque
-                  </p>
-                  <div class="options">
-                    <h6>
-                      $17
-                    </h6>
-                    <a href="">
-                      <svg version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 456.029 456.029" style="enable-background:new 0 0 456.029 456.029;" xml:space="preserve">
-                        <g>
-                          <g>
-                            <path d="M345.6,338.862c-29.184,0-53.248,23.552-53.248,53.248c0,29.184,23.552,53.248,53.248,53.248
-                         c29.184,0,53.248-23.552,53.248-53.248C398.336,362.926,374.784,338.862,345.6,338.862z" />
-                          </g>
-                        </g>
-                        <g>
-                          <g>
-                            <path d="M439.296,84.91c-1.024,0-2.56-0.512-4.096-0.512H112.64l-5.12-34.304C104.448,27.566,84.992,10.67,61.952,10.67H20.48
-                         C9.216,10.67,0,19.886,0,31.15c0,11.264,9.216,20.48,20.48,20.48h41.472c2.56,0,4.608,2.048,5.12,4.608l31.744,216.064
-                         c4.096,27.136,27.648,47.616,55.296,47.616h212.992c26.624,0,49.664-18.944,55.296-45.056l33.28-166.4
-                         C457.728,97.71,450.56,86.958,439.296,84.91z" />
-                          </g>
-                        </g>
-                        <g>
-                          <g>
-                            <path d="M215.04,389.55c-1.024-28.16-24.576-50.688-52.736-50.688c-29.696,1.536-52.224,26.112-51.2,55.296
-                         c1.024,28.16,24.064,50.688,52.224,50.688h1.024C193.536,443.31,216.576,418.734,215.04,389.55z" />
-                          </g>
-                        </g>
-                        <g>
-                        </g>
-                        <g>
-                        </g>
-                        <g>
-                        </g>
-                        <g>
-                        </g>
-                        <g>
-                        </g>
-                        <g>
-                        </g>
-                        <g>
-                        </g>
-                        <g>
-                        </g>
-                        <g>
-                        </g>
-                        <g>
-                        </g>
-                        <g>
-                        </g>
-                        <g>
-                        </g>
-                        <g>
-                        </g>
-                        <g>
-                        </g>
-                        <g>
-                        </g>
-                      </svg>
-                    </a>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="col-sm-6 col-lg-4 all pasta">
-            <div class="box">
-              <div>
-                <div class="img-box">
-                  <img src="imagens/f4.png" alt="">
-                </div>
-                <div class="detail-box">
-                  <h5>
-                    Lanches
-                  </h5>
-                  <p>
-                    Veniam debitis quaerat officiis quasi cupiditate quo, quisquam velit, magnam voluptatem repellendus sed eaque
-                  </p>
-                  <div class="options">
-                    <h6>
-                      $18
-                    </h6>
-                    <a href="">
-                      <svg version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 456.029 456.029" style="enable-background:new 0 0 456.029 456.029;" xml:space="preserve">
-                        <g>
-                          <g>
-                            <path d="M345.6,338.862c-29.184,0-53.248,23.552-53.248,53.248c0,29.184,23.552,53.248,53.248,53.248
-                         c29.184,0,53.248-23.552,53.248-53.248C398.336,362.926,374.784,338.862,345.6,338.862z" />
-                          </g>
-                        </g>
-                        <g>
-                          <g>
-                            <path d="M439.296,84.91c-1.024,0-2.56-0.512-4.096-0.512H112.64l-5.12-34.304C104.448,27.566,84.992,10.67,61.952,10.67H20.48
-                         C9.216,10.67,0,19.886,0,31.15c0,11.264,9.216,20.48,20.48,20.48h41.472c2.56,0,4.608,2.048,5.12,4.608l31.744,216.064
-                         c4.096,27.136,27.648,47.616,55.296,47.616h212.992c26.624,0,49.664-18.944,55.296-45.056l33.28-166.4
-                         C457.728,97.71,450.56,86.958,439.296,84.91z" />
-                          </g>
-                        </g>
-                        <g>
-                          <g>
-                            <path d="M215.04,389.55c-1.024-28.16-24.576-50.688-52.736-50.688c-29.696,1.536-52.224,26.112-51.2,55.296
-                         c1.024,28.16,24.064,50.688,52.224,50.688h1.024C193.536,443.31,216.576,418.734,215.04,389.55z" />
-                          </g>
-                        </g>
-                        <g>
-                        </g>
-                        <g>
-                        </g>
-                        <g>
-                        </g>
-                        <g>
-                        </g>
-                        <g>
-                        </g>
-                        <g>
-                        </g>
-                        <g>
-                        </g>
-                        <g>
-                        </g>
-                        <g>
-                        </g>
-                        <g>
-                        </g>
-                        <g>
-                        </g>
-                        <g>
-                        </g>
-                        <g>
-                        </g>
-                        <g>
-                        </g>
-                        <g>
-                        </g>
-                      </svg>
-                    </a>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="col-sm-6 col-lg-4 all fries">
-            <div class="box">
-              <div>
-                <div class="img-box">
-                  <img src="imagens/f5.png" alt="">
-                </div>
-                <div class="detail-box">
-                  <h5>
-                    Bebidas
-                  </h5>
-                  <p>
-                    Veniam debitis quaerat officiis quasi cupiditate quo, quisquam velit, magnam voluptatem repellendus sed eaque
-                  </p>
-                  <div class="options">
-                    <h6>
-                      R$10,00
-                    </h6>
-                    <a href="">
-                      <svg version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 456.029 456.029" style="enable-background:new 0 0 456.029 456.029;" xml:space="preserve">
-                        <g>
-                          <g>
-                            <path d="M345.6,338.862c-29.184,0-53.248,23.552-53.248,53.248c0,29.184,23.552,53.248,53.248,53.248
-                         c29.184,0,53.248-23.552,53.248-53.248C398.336,362.926,374.784,338.862,345.6,338.862z" />
-                          </g>
-                        </g>
-                        <g>
-                          <g>
-                            <path d="M439.296,84.91c-1.024,0-2.56-0.512-4.096-0.512H112.64l-5.12-34.304C104.448,27.566,84.992,10.67,61.952,10.67H20.48
-                         C9.216,10.67,0,19.886,0,31.15c0,11.264,9.216,20.48,20.48,20.48h41.472c2.56,0,4.608,2.048,5.12,4.608l31.744,216.064
-                         c4.096,27.136,27.648,47.616,55.296,47.616h212.992c26.624,0,49.664-18.944,55.296-45.056l33.28-166.4
-                         C457.728,97.71,450.56,86.958,439.296,84.91z" />
-                          </g>
-                        </g>
-                        <g>
-                          <g>
-                            <path d="M215.04,389.55c-1.024-28.16-24.576-50.688-52.736-50.688c-29.696,1.536-52.224,26.112-51.2,55.296
-                         c1.024,28.16,24.064,50.688,52.224,50.688h1.024C193.536,443.31,216.576,418.734,215.04,389.55z" />
-                          </g>
-                        </g>
-                        <g>
-                        </g>
-                        <g>
-                        </g>
-                        <g>
-                        </g>
-                        <g>
-                        </g>
-                        <g>
-                        </g>
-                        <g>
-                        </g>
-                        <g>
-                        </g>
-                        <g>
-                        </g>
-                        <g>
-                        </g>
-                        <g>
-                        </g>
-                        <g>
-                        </g>
-                        <g>
-                        </g>
-                        <g>
-                        </g>
-                        <g>
-                        </g>
-                        <g>
-                        </g>
-                      </svg>
-                    </a>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="col-sm-6 col-lg-4 all pizza">
-            <div class="box">
-              <div>
-                <div class="img-box">
-                  <img src="imagens/f6.png" alt="">
-                </div>
-                <div class="detail-box">
-                  <h5>
-                    Lanches
-                  </h5>
-                  <p>
-                    Veniam debitis quaerat officiis quasi cupiditate quo, quisquam velit, magnam voluptatem repellendus sed eaque
-                  </p>
-                  <div class="options">
-                    <h6>
-                      $15
-                    </h6>
-                    <a href="">
-                      <svg version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 456.029 456.029" style="enable-background:new 0 0 456.029 456.029;" xml:space="preserve">
-                        <g>
-                          <g>
-                            <path d="M345.6,338.862c-29.184,0-53.248,23.552-53.248,53.248c0,29.184,23.552,53.248,53.248,53.248
-                         c29.184,0,53.248-23.552,53.248-53.248C398.336,362.926,374.784,338.862,345.6,338.862z" />
-                          </g>
-                        </g>
-                        <g>
-                          <g>
-                            <path d="M439.296,84.91c-1.024,0-2.56-0.512-4.096-0.512H112.64l-5.12-34.304C104.448,27.566,84.992,10.67,61.952,10.67H20.48
-                         C9.216,10.67,0,19.886,0,31.15c0,11.264,9.216,20.48,20.48,20.48h41.472c2.56,0,4.608,2.048,5.12,4.608l31.744,216.064
-                         c4.096,27.136,27.648,47.616,55.296,47.616h212.992c26.624,0,49.664-18.944,55.296-45.056l33.28-166.4
-                         C457.728,97.71,450.56,86.958,439.296,84.91z" />
-                          </g>
-                        </g>
-                        <g>
-                          <g>
-                            <path d="M215.04,389.55c-1.024-28.16-24.576-50.688-52.736-50.688c-29.696,1.536-52.224,26.112-51.2,55.296
-                         c1.024,28.16,24.064,50.688,52.224,50.688h1.024C193.536,443.31,216.576,418.734,215.04,389.55z" />
-                          </g>
-                        </g>
-                        <g>
-                        </g>
-                        <g>
-                        </g>
-                        <g>
-                        </g>
-                        <g>
-                        </g>
-                        <g>
-                        </g>
-                        <g>
-                        </g>
-                        <g>
-                        </g>
-                        <g>
-                        </g>
-                        <g>
-                        </g>
-                        <g>
-                        </g>
-                        <g>
-                        </g>
-                        <g>
-                        </g>
-                        <g>
-                        </g>
-                        <g>
-                        </g>
-                        <g>
-                        </g>
-                      </svg>
-                    </a>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="col-sm-6 col-lg-4 all burger">
-            <div class="box">
-              <div>
-                <div class="img-box">
-                  <img src="imagens/f7.png" alt="">
-                </div>
-                <div class="detail-box">
-                  <h5>
-                    Pizza
-                  </h5>
-                  <p>
-                    Veniam debitis quaerat officiis quasi cupiditate quo, quisquam velit, magnam voluptatem repellendus sed eaque
-                  </p>
-                  <div class="options">
-                    <h6>
-                      R$12,00
-                    </h6>
-                    <a href="">
-                      <svg version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 456.029 456.029" style="enable-background:new 0 0 456.029 456.029;" xml:space="preserve">
-                        <g>
-                          <g>
-                            <path d="M345.6,338.862c-29.184,0-53.248,23.552-53.248,53.248c0,29.184,23.552,53.248,53.248,53.248
-                         c29.184,0,53.248-23.552,53.248-53.248C398.336,362.926,374.784,338.862,345.6,338.862z" />
-                          </g>
-                        </g>
-                        <g>
-                          <g>
-                            <path d="M439.296,84.91c-1.024,0-2.56-0.512-4.096-0.512H112.64l-5.12-34.304C104.448,27.566,84.992,10.67,61.952,10.67H20.48
-                         C9.216,10.67,0,19.886,0,31.15c0,11.264,9.216,20.48,20.48,20.48h41.472c2.56,0,4.608,2.048,5.12,4.608l31.744,216.064
-                         c4.096,27.136,27.648,47.616,55.296,47.616h212.992c26.624,0,49.664-18.944,55.296-45.056l33.28-166.4
-                         C457.728,97.71,450.56,86.958,439.296,84.91z" />
-                          </g>
-                        </g>
-                        <g>
-                          <g>
-                            <path d="M215.04,389.55c-1.024-28.16-24.576-50.688-52.736-50.688c-29.696,1.536-52.224,26.112-51.2,55.296
-                         c1.024,28.16,24.064,50.688,52.224,50.688h1.024C193.536,443.31,216.576,418.734,215.04,389.55z" />
-                          </g>
-                        </g>
-                        <g>
-                        </g>
-                        <g>
-                        </g>
-                        <g>
-                        </g>
-                        <g>
-                        </g>
-                        <g>
-                        </g>
-                        <g>
-                        </g>
-                        <g>
-                        </g>
-                        <g>
-                        </g>
-                        <g>
-                        </g>
-                        <g>
-                        </g>
-                        <g>
-                        </g>
-                        <g>
-                        </g>
-                        <g>
-                        </g>
-                        <g>
-                        </g>
-                        <g>
-                        </g>
-                      </svg>
-                    </a>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="col-sm-6 col-lg-4 all burger">
-            <div class="box">
-              <div>
-                <div class="img-box">
-                  <img src="imagens/f8.png" alt="">
-                </div>
-                <div class="detail-box">
-                  <h5>
-                    Pizza
-                  </h5>
-                  <p>
-                    Veniam debitis quaerat officiis quasi cupiditate quo, quisquam velit, magnam voluptatem repellendus sed eaque
-                  </p>
-                  <div class="options">
-                    <h6>
-                      R$ 14,00
-                    </h6>
-                    <a href="">
-                      <svg version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 456.029 456.029" style="enable-background:new 0 0 456.029 456.029;" xml:space="preserve">
-                        <g>
-                          <g>
-                            <path d="M345.6,338.862c-29.184,0-53.248,23.552-53.248,53.248c0,29.184,23.552,53.248,53.248,53.248
-                         c29.184,0,53.248-23.552,53.248-53.248C398.336,362.926,374.784,338.862,345.6,338.862z" />
-                          </g>
-                        </g>
-                        <g>
-                          <g>
-                            <path d="M439.296,84.91c-1.024,0-2.56-0.512-4.096-0.512H112.64l-5.12-34.304C104.448,27.566,84.992,10.67,61.952,10.67H20.48
-                         C9.216,10.67,0,19.886,0,31.15c0,11.264,9.216,20.48,20.48,20.48h41.472c2.56,0,4.608,2.048,5.12,4.608l31.744,216.064
-                         c4.096,27.136,27.648,47.616,55.296,47.616h212.992c26.624,0,49.664-18.944,55.296-45.056l33.28-166.4
-                         C457.728,97.71,450.56,86.958,439.296,84.91z" />
-                          </g>
-                        </g>
-                        <g>
-                          <g>
-                            <path d="M215.04,389.55c-1.024-28.16-24.576-50.688-52.736-50.688c-29.696,1.536-52.224,26.112-51.2,55.296
-                         c1.024,28.16,24.064,50.688,52.224,50.688h1.024C193.536,443.31,216.576,418.734,215.04,389.55z" />
-                          </g>
-                        </g>
-                        <g>
-                        </g>
-                        <g>
-                        </g>
-                        <g>
-                        </g>
-                        <g>
-                        </g>
-                        <g>
-                        </g>
-                        <g>
-                        </g>
-                        <g>
-                        </g>
-                        <g>
-                        </g>
-                        <g>
-                        </g>
-                        <g>
-                        </g>
-                        <g>
-                        </g>
-                        <g>
-                        </g>
-                        <g>
-                        </g>
-                        <g>
-                        </g>
-                        <g>
-                        </g>
-                      </svg>
-                    </a>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="col-sm-6 col-lg-4 all pasta">
-            <div class="box">
-              <div>
-                <div class="img-box">
-                  <img src="imagens/f9.png" alt="">
-                </div>
-                <div class="detail-box">
-                  <h5>
-                    Lanches
-                  </h5>
-                  <p>
-                    Veniam debitis quaerat officiis quasi cupiditate quo, quisquam velit, magnam voluptatem repellendus sed eaque
-                  </p>
-                  <div class="options">
-                    <h6>
-                      R$10
-                    </h6>
-                    <a href="">
-                      <svg version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 456.029 456.029" style="enable-background:new 0 0 456.029 456.029;" xml:space="preserve">
-                        <g>
-                          <g>
-                            <path d="M345.6,338.862c-29.184,0-53.248,23.552-53.248,53.248c0,29.184,23.552,53.248,53.248,53.248
-                         c29.184,0,53.248-23.552,53.248-53.248C398.336,362.926,374.784,338.862,345.6,338.862z" />
-                          </g>
-                        </g>
-                        <g>
-                          <g>
-                            <path d="M439.296,84.91c-1.024,0-2.56-0.512-4.096-0.512H112.64l-5.12-34.304C104.448,27.566,84.992,10.67,61.952,10.67H20.48
-                         C9.216,10.67,0,19.886,0,31.15c0,11.264,9.216,20.48,20.48,20.48h41.472c2.56,0,4.608,2.048,5.12,4.608l31.744,216.064
-                         c4.096,27.136,27.648,47.616,55.296,47.616h212.992c26.624,0,49.664-18.944,55.296-45.056l33.28-166.4
-                         C457.728,97.71,450.56,86.958,439.296,84.91z" />
-                          </g>
-                        </g>
-                        <g>
-                          <g>
-                            <path d="M215.04,389.55c-1.024-28.16-24.576-50.688-52.736-50.688c-29.696,1.536-52.224,26.112-51.2,55.296
-                         c1.024,28.16,24.064,50.688,52.224,50.688h1.024C193.536,443.31,216.576,418.734,215.04,389.55z" />
-                          </g>
-                        </g>
-                        <g>
-                        </g>
-                        <g>
-                        </g>
-                        <g>
-                        </g>
-                        <g>
-                        </g>
-                        <g>
-                        </g>
-                        <g>
-                        </g>
-                        <g>
-                        </g>
-                        <g>
-                        </g>
-                        <g>
-                        </g>
-                        <g>
-                        </g>
-                        <g>
-                        </g>
-                        <g>
-                        </g>
-                        <g>
-                        </g>
-                        <g>
-                        </g>
-                        <g>
-                        </g>
-                      </svg>
-                    </a>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
+      <!-- Pizzas -->
+      <div class="menu-item pizza show" data-name="Pizza Margherita" data-price="38.00">
+        <img src="imagens/f2.png" alt="Pizza Margherita" loading="lazy">
+        <div class="menu-body">
+          <h5><span class="icon">🍕</span> Pizza Margherita</h5>
+          <p>Molho de tomate caseiro, muçarela derretida, manjericão fresco e azeite extra virgem.</p>
+          <div class="preco">R$ 38,00</div>
+          <button class="add-btn" onclick="addToCart('Pizza Margherita', 38.00)">Adicionar ao Carrinho</button>
         </div>
       </div>
-      <div class="btn-box">
-        <a href="">
-          Ver Mais
-        </a>
+
+      <div class="menu-item pizza show" data-name="Pizza Calabresa" data-price="42.00">
+        <img src="imagens/f7.png" alt="Pizza Calabresa" loading="lazy">
+        <div class="menu-body">
+          <h5><span class="icon">🍕</span> Pizza Calabresa</h5>
+          <p>Muçarela, calabresa fatiada artesanal, cebola roxa e orégano especial.</p>
+          <div class="preco">R$ 42,00</div>
+          <button class="add-btn" onclick="addToCart('Pizza Calabresa', 42.00)">Adicionar ao Carrinho</button>
+        </div>
       </div>
+
+      <div class="menu-item pizza show" data-name="Frango com Catupiry" data-price="45.00">
+        <img src="imagens/f8.png" alt="Pizza Frango com Catupiry" loading="lazy">
+        <div class="menu-body">
+          <h5><span class="icon">🍕</span> Frango com Catupiry</h5>
+          <p>Frango desfiado temperado, catupiry cremoso, muçarela e toque de milho.</p>
+          <div class="preco">R$ 45,00</div>
+          <button class="add-btn" onclick="addToCart('Frango com Catupiry', 45.00)">Adicionar ao Carrinho</button>
+        </div>
+      </div>
+
+      <!-- Massas -->
+      <div class="menu-item massa show" data-name="Macarrão ao Molho Pesto" data-price="32.00">
+        <img src="imagens/f1.png" alt="Macarrão ao Molho Pesto" loading="lazy">
+        <div class="menu-body">
+          <h5><span class="icon">🍝</span> Macarrão ao Molho Pesto</h5>
+          <p>Espaguete al dente com pesto de manjericão fresco, parmesão ralado e castanhas.</p>
+          <div class="preco">R$ 32,00</div>
+          <button class="add-btn" onclick="addToCart('Macarrão ao Molho Pesto', 32.00)">Adicionar ao Carrinho</button>
+        </div>
+      </div>
+
+      <div class="menu-item massa show" data-name="Lasanha Bolonhesa" data-price="38.00">
+        <img src="imagens/f3.png" alt="Lasanha Bolonhesa" loading="lazy">
+        <div class="menu-body">
+          <h5><span class="icon">🍝</span> Lasanha Bolonhesa</h5>
+          <p>Camadas de massa caseira, molho bolonhesa artesanal, bechamel e queijo gratinado.</p>
+          <div class="preco">R$ 38,00</div>
+          <button class="add-btn" onclick="addToCart('Lasanha Bolonhesa', 38.00)">Adicionar ao Carrinho</button>
+        </div>
+      </div>
+
+      <div class="menu-item massa show" data-name="Espaguete Carbonara" data-price="35.00">
+        <img src="imagens/f6.png" alt="Espaguete Carbonara" loading="lazy">
+        <div class="menu-body">
+          <h5><span class="icon">🍝</span> Espaguete Carbonara</h5>
+          <p>Espaguete com bacon crocante, ovo cremoso, parmesão e pimenta-do-reino moída na hora.</p>
+          <div class="preco">R$ 35,00</div>
+          <button class="add-btn" onclick="addToCart('Espaguete Carbonara', 35.00)">Adicionar ao Carrinho</button>
+        </div>
+      </div>
+
+      <!-- Lanches -->
+      <div class="menu-item lanche show" data-name="X-Burger Clássico" data-price="22.00">
+        <img src="imagens/f4.png" alt="X-Burger Clássico" loading="lazy">
+        <div class="menu-body">
+          <h5><span class="icon">🍔</span> X-Burger Clássico</h5>
+          <p>Hambúrguer artesanal 150g, queijo cheddar, alface, tomate, maionese caseira e pão brioche.</p>
+          <div class="preco">R$ 22,00</div>
+          <button class="add-btn" onclick="addToCart('X-Burger Clássico', 22.00)">Adicionar ao Carrinho</button>
+        </div>
+      </div>
+
+      <div class="menu-item lanche show" data-name="X-Tudo" data-price="28.00">
+        <img src="imagens/f9.png" alt="X-Tudo" loading="lazy">
+        <div class="menu-body">
+          <h5><span class="icon">🍔</span> X-Tudo</h5>
+          <p>Hambúrguer, queijo, presunto, bacon, ovo, alface, tomate, milho, batata palha e molho especial.</p>
+          <div class="preco">R$ 28,00</div>
+          <button class="add-btn" onclick="addToCart('X-Tudo', 28.00)">Adicionar ao Carrinho</button>
+        </div>
+      </div>
+
+      <!-- Bebidas -->
+      <div class="menu-item bebida show" data-name="Refrigerante 2L" data-price="12.00">
+        <img src="imagens/f5.png" alt="Refrigerante 2L" loading="lazy">
+        <div class="menu-body">
+          <h5><span class="icon">🥤</span> Refrigerante 2L</h5>
+          <p>Garrafa PET 2 litros – Coca-Cola, Guaraná, Fanta ou Sprite.</p>
+          <div class="preco">R$ 12,00</div>
+          <button class="add-btn" onclick="addToCart('Refrigerante 2L', 12.00)">Adicionar ao Carrinho</button>
+        </div>
+      </div>
+
+      <div class="menu-item bebida show" data-name="Suco Natural 500ml" data-price="10.00">
+        <img src="imagens/f5.png" alt="Suco Natural 500ml" loading="lazy">
+        <div class="menu-body">
+          <h5><span class="icon">🥤</span> Suco Natural 500ml</h5>
+          <p>Suco de laranja, limão ou maracujá natural, sem conservantes.</p>
+          <div class="preco">R$ 10,00</div>
+          <button class="add-btn" onclick="addToCart('Suco Natural 500ml', 10.00)">Adicionar ao Carrinho</button>
+        </div>
+      </div>
+
+      <div class="menu-item bebida show" data-name="Água Mineral 500ml" data-price="6.00">
+        <img src="imagens/f5.png" alt="Água Mineral 500ml" loading="lazy">
+        <div class="menu-body">
+          <h5><span class="icon">💧</span> Água Mineral 500ml</h5>
+          <p>Água mineral sem gás, garrafa PET 500ml.</p>
+          <div class="preco">R$ 6,00</div>
+          <button class="add-btn" onclick="addToCart('Água Mineral 500ml', 6.00)">Adicionar ao Carrinho</button>
+        </div>
+      </div>
+
+      <div class="menu-item bebida show" data-name="Cerveja Lata" data-price="9.00">
+        <img src="imagens/f5.png" alt="Cerveja Lata" loading="lazy">
+        <div class="menu-body">
+          <h5><span class="icon">🍺</span> Cerveja Lata</h5>
+          <p>Lata 350ml – Brahma, Skol, Antarctica ou Budweiser (gelada).</p>
+          <div class="preco">R$ 9,00</div>
+          <button class="add-btn" onclick="addToCart('Cerveja Lata', 9.00)">Adicionar ao Carrinho</button>
+        </div>
+      </div>
+
     </div>
-  </section>
 
-  <!-- end food section -->
-
-  <!-- footer section -->
-  <footer class="footer_section">
-    <div class="container">
-      <div class="row">
-        <div class="col-md-4 footer-col">
-          <div class="footer_contact">
-            <h4>
-              
-            </h4>
-            <div class="contact_link_box">
-              <a href="">
-                <i class="fa fa-map-marker" aria-hidden="true"></i>
-                <span>
-                  
-                </span>
-              </a>
-              <a href="">
-                <i class="fa fa-phone" aria-hidden="true"></i>
-                <span>
-                  
-                </span>
-              </a>
-              <a href="">
-                <i class="fa fa-envelope" aria-hidden="true"></i>
-                <span>
-                  
-                </span>
-              </a>
-            </div>
-          </div>
-        </div>
-
-        <div class="col-md-4 footer-col">
-          <div class="footer_detail">
-            <a href="" class="footer-logo">
-              Fale Conosco
-            </a>
-            <p>
-              Necessary, making this the first true generator on the Internet. It uses a dictionary of over 200 Latin words, combined with
-            </p>
-            <div class="footer_social">
-              <a href="https://github.com/MQJogos" target="_blank">
-                <i class="ph ph-github-logo"></i>
-              </a>
-
-              <a href="https://www.instagram.com/mqjogos/" target="_blank">
-                <i class="ph ph-instagram-logo"></i>
-              </a>
-
-              <a href="https://www.linkedin.com/in/debora-inocencio/" target="_blank">
-                <i class="ph ph-linkedin-logo"></i>
-              </a>
-
-              <a href="https://www.youtube.com/channel/UCfEsOEx_t6hiIms8HzttxOw/featured" target="_blank">
-                <i class="ph ph-youtube-logo"></i>
-              </a>
-
-              <a href="https://br.pinterest.com/mqjogos/">
-                <i class="ph ph-pinterest-logo" target="_blank"></i>
-              </a>
-            </div>
-          </div>
-        </div>
-        <div class="col-md-4 footer-col">
-          <h4>
-            
-          </h4>
-          <p>
-            
-          </p>
-          <p>
-            
-          </p>
-        </div>
-      </div>
-      <div class="footer-info">
-        <p>
-          &copy; <span id="displayYear"></span>
-          <a href="https://html.design/">MQJogos</a><br><br>
-        </p>
-      </div>
+    <div style="text-align:center;margin-top:3rem">
+      <a href="https://wa.me/5514999993333?text=Olá!%20Quero%20fazer%20um%20pedido" class="btn">Finalizar Pedido no WhatsApp</a>
     </div>
-  </footer>
-  <!-- footer section -->
+  </div>
+</section>
 
-  <!-- jQery -->
-  <script src="js/jquery-3.4.1.min.js"></script>
-  <!-- popper js -->
-  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous">
-  </script>
-  <!-- bootstrap js -->
-  <script src="js/bootstrap.js"></script>
-  <!-- owl slider -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js">
-  </script>
-  <!-- isotope js -->
-  <script src="https://unpkg.com/isotope-layout@3.0.4/dist/isotope.pkgd.min.js"></script>
-  <!-- nice select -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-nice-select/1.1.0/js/jquery.nice-select.min.js"></script>
-  <!-- custom js -->
-  <script src="js/custom.js"></script>
-  <!-- Google Map -->
-  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCh39n5U-4IoWpsVGUHWdqB6puEkhRLdmI&callback=myMap">
-  </script>
-  <!-- End Google Map -->
-  
-  <script src="https://unpkg.com/@phosphor-icons/web"></script>
+<div class="whatsapp-float">
+  <a href="https://wa.me/5514999993333?text=Olá!%20Quero%20fazer%20um%20pedido%20no%20cardápio" target="_blank">
+    <i class="uil uil-whatsapp"></i>
+  </a>
+</div>
+
+<footer>
+  <div class="container">
+    <div class="social">
+      <a href="#"><i class="uil uil-facebook-f"></i></a>
+      <a href="#"><i class="uil uil-instagram"></i></a>
+      <a href="#"><i class="uil uil-whatsapp"></i></a>
+    </div>
+    <p>© <script>document.write(new Date().getFullYear())</script> Oba Pizzaria & Restaurante </p>
+  </div>
+</footer>
+
+<script>
+// Menu mobile
+document.querySelector('.menu-btn').onclick = () => {
+  document.querySelector('.menu-btn').classList.toggle('active');
+  document.querySelector('nav ul').classList.toggle('active');
+};
+
+// Carrinho
+let cart = JSON.parse(localStorage.getItem('cart')) || [];
+
+function updateCartCount() {
+  const count = cart.reduce((sum, item) => sum + item.quantity, 0);
+  document.getElementById('cartCount').textContent = count;
+}
+
+function addToCart(name, price) {
+  const existing = cart.find(item => item.name === name);
+  if (existing) {
+    existing.quantity += 1;
+  } else {
+    cart.push({ name, price, quantity: 1 });
+  }
+  localStorage.setItem('cart', JSON.stringify(cart));
+  updateCartCount();
+  alert(`${name} adicionado ao carrinho!`);
+}
+
+// Filtro de categorias
+document.querySelectorAll('.filters_menu li').forEach(filter => {
+  filter.addEventListener('click', () => {
+    document.querySelectorAll('.filters_menu li').forEach(li => li.classList.remove('active'));
+    filter.classList.add('active');
+
+    const filtro = filter.getAttribute('data-filter');
+
+    document.querySelectorAll('.menu-item').forEach(item => {
+      if (filtro === 'all' || item.classList.contains(filtro)) {
+        item.classList.add('show');
+      } else {
+        item.classList.remove('show');
+      }
+    });
+  });
+});
+
+// Inicialização
+document.querySelector('.filters_menu li[data-filter="all"]').click();
+updateCartCount();
+</script>
 </body>
-
 </html>
