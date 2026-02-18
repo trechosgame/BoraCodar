@@ -1,7 +1,7 @@
 # 01 - Página Principal (app.html) 
 
 ## Criar o app.html
-
+~~~
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
