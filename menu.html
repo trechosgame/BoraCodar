@@ -79,9 +79,10 @@
         <ul>
           <li><a href="app.html">Início</a></li>
           <li><a href="menu.html">Cardápio</a></li>
+          <li><a href="carrinho.html">Carrinho <span id="cartCountHeader"> </span></a></li>
           <li><a href="about.html">Sobre</a></li>
           <li><a href="menu.html">Reservas</a></li>
-          <li><span class="cart-icon">🛒 <span class="cart-count" id="cartCount">0</span></span></li>
+          <li><span class="cart-icon">🛒 <span class="cart-count" id="cartCount"> </span></span></li>
         </ul>
       </nav>
     </div>
@@ -104,7 +105,7 @@
 
       <!-- Pizzas -->
       <div class="menu-item pizza show" data-name="Pizza Margherita" data-price="38.00">
-        <img src="imagens/f2.png" alt="Pizza Margherita" loading="lazy">
+        <img src="imagens/Pizza_Margherita.png" alt="Pizza Margherita" loading="lazy">
         <div class="menu-body">
           <h5><span class="icon">🍕</span> Pizza Margherita</h5>
           <p>Molho de tomate caseiro, muçarela derretida, manjericão fresco e azeite extra virgem.</p>
@@ -114,7 +115,7 @@
       </div>
 
       <div class="menu-item pizza show" data-name="Pizza Calabresa" data-price="42.00">
-        <img src="imagens/f7.png" alt="Pizza Calabresa" loading="lazy">
+        <img src="imagens/Pizza_Calabresa.jpg" alt="Pizza Calabresa" loading="lazy">
         <div class="menu-body">
           <h5><span class="icon">🍕</span> Pizza Calabresa</h5>
           <p>Muçarela, calabresa fatiada artesanal, cebola roxa e orégano especial.</p>
@@ -124,7 +125,7 @@
       </div>
 
       <div class="menu-item pizza show" data-name="Frango com Catupiry" data-price="45.00">
-        <img src="imagens/f8.png" alt="Pizza Frango com Catupiry" loading="lazy">
+        <img src="imagens/Pizza_Frango_Catupiry.jpg" alt="Pizza Frango com Catupiry" loading="lazy">
         <div class="menu-body">
           <h5><span class="icon">🍕</span> Frango com Catupiry</h5>
           <p>Frango desfiado temperado, catupiry cremoso, muçarela e toque de milho.</p>
@@ -135,7 +136,7 @@
 
       <!-- Massas -->
       <div class="menu-item massa show" data-name="Macarrão ao Molho Pesto" data-price="32.00">
-        <img src="imagens/f1.png" alt="Macarrão ao Molho Pesto" loading="lazy">
+        <img src="imagens/Macarrao_Pesto.jpg" alt="Macarrão ao Molho Pesto" loading="lazy">
         <div class="menu-body">
           <h5><span class="icon">🍝</span> Macarrão ao Molho Pesto</h5>
           <p>Espaguete al dente com pesto de manjericão fresco, parmesão ralado e castanhas.</p>
@@ -145,7 +146,7 @@
       </div>
 
       <div class="menu-item massa show" data-name="Lasanha Bolonhesa" data-price="38.00">
-        <img src="imagens/f3.png" alt="Lasanha Bolonhesa" loading="lazy">
+        <img src="imagens/Lasanha_Bolonhesa.jpg" alt="Lasanha Bolonhesa" loading="lazy">
         <div class="menu-body">
           <h5><span class="icon">🍝</span> Lasanha Bolonhesa</h5>
           <p>Camadas de massa caseira, molho bolonhesa artesanal, bechamel e queijo gratinado.</p>
@@ -155,7 +156,7 @@
       </div>
 
       <div class="menu-item massa show" data-name="Espaguete Carbonara" data-price="35.00">
-        <img src="imagens/f6.png" alt="Espaguete Carbonara" loading="lazy">
+        <img src="imagens/Espaguete_Carbonara.jpg" alt="Espaguete Carbonara" loading="lazy">
         <div class="menu-body">
           <h5><span class="icon">🍝</span> Espaguete Carbonara</h5>
           <p>Espaguete com bacon crocante, ovo cremoso, parmesão e pimenta-do-reino moída na hora.</p>
@@ -166,7 +167,7 @@
 
       <!-- Lanches -->
       <div class="menu-item lanche show" data-name="X-Burger Clássico" data-price="22.00">
-        <img src="imagens/f4.png" alt="X-Burger Clássico" loading="lazy">
+        <img src="imagens/HAMBURGUER_CLASSICO.jpg" alt="X-Burger Clássico" loading="lazy">
         <div class="menu-body">
           <h5><span class="icon">🍔</span> X-Burger Clássico</h5>
           <p>Hambúrguer artesanal 150g, queijo cheddar, alface, tomate, maionese caseira e pão brioche.</p>
@@ -176,7 +177,7 @@
       </div>
 
       <div class="menu-item lanche show" data-name="X-Tudo" data-price="28.00">
-        <img src="imagens/f9.png" alt="X-Tudo" loading="lazy">
+        <img src="imagens/X_TUDO.jpg" alt="X-Tudo" loading="lazy">
         <div class="menu-body">
           <h5><span class="icon">🍔</span> X-Tudo</h5>
           <p>Hambúrguer, queijo, presunto, bacon, ovo, alface, tomate, milho, batata palha e molho especial.</p>
@@ -189,8 +190,38 @@
       <div class="menu-item bebida show" data-name="Refrigerante 2L" data-price="12.00">
         <img src="imagens/f5.png" alt="Refrigerante 2L" loading="lazy">
         <div class="menu-body">
-          <h5><span class="icon">🥤</span> Refrigerante 2L</h5>
-          <p>Garrafa PET 2 litros – Coca-Cola, Guaraná, Fanta ou Sprite.</p>
+          <h5><span class="icon">🥤</span> Coca - Cola </h5>
+          <p>Garrafa PET 2 litros.</p>
+          <div class="preco">R$ 12,00</div>
+          <button class="add-btn" onclick="addToCart('Refrigerante 2L', 12.00)">Adicionar ao Carrinho</button>
+        </div>
+      </div>
+
+      <div class="menu-item bebida show" data-name="Refrigerante 2L" data-price="12.00">
+        <img src="imagens/f5.png" alt="Refrigerante 2L" loading="lazy">
+        <div class="menu-body">
+          <h5><span class="icon">🥤</span> Guaraná </h5>
+          <p> Garrafa PET 2 litros.</p>
+          <div class="preco">R$ 12,00</div>
+          <button class="add-btn" onclick="addToCart('Refrigerante 2L', 12.00)">Adicionar ao Carrinho</button>
+        </div>
+      </div>
+
+      <div class="menu-item bebida show" data-name="Refrigerante 2L" data-price="12.00">
+        <img src="imagens/f5.png" alt="Refrigerante 2L" loading="lazy">
+        <div class="menu-body">
+          <h5><span class="icon">🥤</span> Fanta </h5>
+          <p> Garrafa PET 2 litros.</p>
+          <div class="preco">R$ 12,00</div>
+          <button class="add-btn" onclick="addToCart('Refrigerante 2L', 12.00)">Adicionar ao Carrinho</button>
+        </div>
+      </div>
+
+      <div class="menu-item bebida show" data-name="Refrigerante 2L" data-price="12.00">
+        <img src="imagens/f5.png" alt="Refrigerante 2L" loading="lazy">
+        <div class="menu-body">
+          <h5><span class="icon">🥤</span> Sprite </h5>
+          <p> Garrafa PET 2 litros.</p>
           <div class="preco">R$ 12,00</div>
           <button class="add-btn" onclick="addToCart('Refrigerante 2L', 12.00)">Adicionar ao Carrinho</button>
         </div>
@@ -199,8 +230,38 @@
       <div class="menu-item bebida show" data-name="Suco Natural 500ml" data-price="10.00">
         <img src="imagens/f5.png" alt="Suco Natural 500ml" loading="lazy">
         <div class="menu-body">
-          <h5><span class="icon">🥤</span> Suco Natural 500ml</h5>
-          <p>Suco de laranja, limão ou maracujá natural, sem conservantes.</p>
+          <h5><span class="icon">🥤</span> Suco de Limão</h5>
+          <p> Limão natural, sem conservantes. 500 ml</p>
+          <div class="preco">R$ 10,00</div>
+          <button class="add-btn" onclick="addToCart('Suco Natural 500ml', 10.00)">Adicionar ao Carrinho</button>
+        </div>
+      </div>
+
+      <div class="menu-item bebida show" data-name="Suco Natural 500ml" data-price="10.00">
+        <img src="imagens/f5.png" alt="Suco Natural 500ml" loading="lazy">
+        <div class="menu-body">
+          <h5><span class="icon">🥤</span> Suco de Laranja</h5>
+          <p> Laranja natural, sem conservantes. 500 ml</p>
+          <div class="preco">R$ 10,00</div>
+          <button class="add-btn" onclick="addToCart('Suco Natural 500ml', 10.00)">Adicionar ao Carrinho</button>
+        </div>
+      </div>
+
+      <div class="menu-item bebida show" data-name="Suco Natural 500ml" data-price="10.00">
+        <img src="imagens/f5.png" alt="Suco Natural 500ml" loading="lazy">
+        <div class="menu-body">
+          <h5><span class="icon">🥤</span> Suco de Maracujá</h5>
+          <p> Maracujá natural, sem conservantes. 500 ml</p>
+          <div class="preco">R$ 10,00</div>
+          <button class="add-btn" onclick="addToCart('Suco Natural 500ml', 10.00)">Adicionar ao Carrinho</button>
+        </div>
+      </div>
+
+      <div class="menu-item bebida show" data-name="Suco Natural 500ml" data-price="10.00">
+        <img src="imagens/f5.png" alt="Suco Natural 500ml" loading="lazy">
+        <div class="menu-body">
+          <h5><span class="icon">🥤</span> Suco de Uva </h5>
+          <p> Uva natural, sem conservantes. 500 ml</p>
           <div class="preco">R$ 10,00</div>
           <button class="add-btn" onclick="addToCart('Suco Natural 500ml', 10.00)">Adicionar ao Carrinho</button>
         </div>
