@@ -2,13 +2,13 @@
 
 ## Criar o app.html
 
-<!DOCTYPE html>
+1. <!DOCTYPE html>
 <html lang="pt-br">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title> Oba Pizzaria - Pizzas & Restaurante </title>
-  <meta name="description" content="Oba Pizzaria – Restaurantes ingredientes artesanais, massas, lanches e bebidas . Promoções diárias e ambiente familiar. Peça agora!">
+  <title>Oba Pizzaria - Pizzas e Delivery em Bauru</title>
+  <meta name="description" content="Oba Pizzaria – Pizzas artesanais, massas, lanches e bebidas em Bauru-SP. Promoções diárias e ambiente familiar. Peça agora!">
 
   <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.0/css/line.css">
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
@@ -223,7 +223,6 @@
 </script>
 </body>
 </html>
-
 
 1. 
 2. 
