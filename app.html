@@ -3,68 +3,41 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title> Oba Pizzaria & Restaurante </title>
-  <meta name="description" content=" Oba Pizzaria & Restaurante ">
+  <title> Sobre Nós - Oba Pizzaria & Restaurante </title>
+  <meta name="description" content="Conheça a Oba Pizzaria: tradição, qualidade e sabor em Bauru-SP desde [ano]. Venha nos visitar!">
 
   <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.0/css/line.css">
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
 
   <style>
-    :root{--laranja:#ff6b35;--escuro:#222;--claro:#fff;--cinza:#666}
+    :root{--primary:#ff6b35;--dark:#222;--light:#fff;--gray:#666}
     *{margin:0;padding:0;box-sizing:border-box}
-    body{font-family:'Poppins',sans-serif;background:#f9f9f9;color:var(--escuro);line-height:1.6}
+    body{font-family:'Poppins',sans-serif;background:#f9f9f9;color:var(--dark);line-height:1.6}
     .container{max-width:1400px;margin:0 auto;padding:0 15px}
 
-    header{position:fixed;top:0;left:0;width:100%;background:rgba(255,255,255,0.95);backdrop-filter:blur(8px);box-shadow:0 2px 10px rgba(0,0,0,0.1);z-index:1000}
+    header{position:fixed;top:0;left:0;width:100%;background:rgba(255,255,255,0.95);backdrop-filter:blur(10px);box-shadow:0 2px 10px rgba(0,0,0,0.08);z-index:1000}
     .nav{display:flex;justify-content:space-between;align-items:center;padding:1rem 0}
-    .logo{font-size:1.8rem;font-weight:700;color:var(--laranja)}
+    .logo{font-size:1.8rem;font-weight:700;color:var(--primary)}
     .menu-btn{display:none;flex-direction:column;gap:5px;width:35px;cursor:pointer}
-    .menu-btn span{height:3px;background:var(--escuro);transition:.4s}
+    .menu-btn span{height:3px;background:var(--dark);transition:.4s}
     nav ul{display:flex;list-style:none;gap:1.5rem}
-    nav a{color:var(--escuro);text-decoration:none;font-weight:600}
-    nav a:hover{color:var(--laranja)}
+    nav a{color:var(--dark);text-decoration:none;font-weight:600}
+    nav a:hover{color:var(--primary)}
 
-    .hero{min-height:80vh;background:linear-gradient(rgba(0,0,0,0.5),rgba(0,0,0,0.3)),url('imagens/bg.jpg') center/cover fixed;color:white;display:flex;align-items:center;text-align:center;padding-top:80px}
-    .hero h1{font-size:clamp(2.5rem,8vw,5rem);margin-bottom:1.5rem}
+    .hero{min-height:60vh;background:linear-gradient(rgba(0,0,0,0.5),rgba(0,0,0,0.3)),url('imagens/bg.jpg') center/cover fixed;color:white;display:flex;align-items:center;justify-content:center;text-align:center;padding-top:80px}
+    .hero h1{font-size:clamp(2.5rem,8vw,4.5rem)}
 
-    .btn{display:inline-block;padding:0.9rem 2rem;background:var(--laranja);color:white;border-radius:50px;text-decoration:none;font-weight:600;transition:.3s}
+    section{padding:80px 0}
+    h2{text-align:center;font-size:clamp(2rem,6vw,3.5rem);margin-bottom:2rem}
+
+    .about-content{max-width:900px;margin:0 auto;text-align:center}
+    .about-content img{width:100%;max-width:600px;border-radius:12px;margin:2rem auto;display:block;box-shadow:0 4px 15px rgba(0,0,0,0.1)}
+    .about-content p{font-size:1.1rem;margin-bottom:1.5rem;color:#444}
+
+    .btn{display:inline-block;padding:0.9rem 2rem;background:var(--primary);color:white;border-radius:50px;text-decoration:none;font-weight:600;transition:.3s;margin-top:1rem}
     .btn:hover{background:#e55a2d;transform:translateY(-3px)}
 
-    section{padding:60px 0}
-    h2{text-align:center;font-size:clamp(2rem,5vw,3.5rem);margin-bottom:2.5rem}
-
-    .offers{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:1.8rem}
-    .offer-card{background:white;border-radius:12px;overflow:hidden;box-shadow:0 4px 15px rgba(0,0,0,0.08);transition:.3s}
-    .offer-card:hover{transform:translateY(-8px)}
-    .offer-card img{width:100%;height:200px;object-fit:cover}
-    .offer-body{padding:1.5rem;text-align:center}
-    .offer-body .desconto{font-size:2.2rem;color:var(--laranja);font-weight:700}
-
-    .menu-filters{display:flex;justify-content:center;flex-wrap:wrap;gap:0.8rem;margin:2rem 0;list-style:none}
-    .menu-filters li{padding:0.6rem 1.3rem;border-radius:50px;background:#eee;cursor:pointer;transition:.3s}
-    .menu-filters li.active,.menu-filters li:hover{background:var(--laranja);color:white}
-
-    .menu-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:1.8rem}
-    .menu-item{background:white;border-radius:12px;overflow:hidden;box-shadow:0 4px 12px rgba(0,0,0,0.08);transition:.3s}
-    .menu-item:hover{transform:translateY(-6px)}
-    .menu-item img{width:100%;height:180px;object-fit:cover}
-    .menu-body{padding:1.2rem;text-align:center}
-    .menu-body .preco{color:var(--laranja);font-weight:700;font-size:1.3rem}
-
-    .about{background:#fff;padding:80px 0}
-    .about-grid{display:grid;grid-template-columns:1fr 1fr;gap:3rem;align-items:center}
-    .about-grid img{width:100%;border-radius:12px}
-
-    .book{padding:80px 0}
-    .book form{max-width:600px;margin:0 auto}
-    .form-control{width:100%;padding:0.9rem;margin-bottom:1.2rem;border:1px solid #ddd;border-radius:8px;font-size:1rem}
-
-    .payments{background:#f8f9fa;padding:80px 0}
-    .payment-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:1.5rem}
-    .payment-card{background:white;padding:1.5rem;border-radius:12px;text-align:center;box-shadow:0 4px 12px rgba(0,0,0,0.08)}
-    .payment-card img{max-width:100px;margin-bottom:1rem}
-
-    footer{background:var(--escuro);color:white;text-align:center;padding:3rem 0 1.5rem}
+    footer{background:var(--dark);color:white;text-align:center;padding:3rem 0 1.5rem}
     .social a{color:white;font-size:1.8rem;margin:0 1rem}
 
     .whatsapp-float{position:fixed;bottom:20px;right:20px;z-index:9999}
@@ -78,11 +51,10 @@
       .menu-btn.active span:nth-child(1){transform:rotate(45deg) translate(8px,8px)}
       .menu-btn.active span:nth-child(2){opacity:0}
       .menu-btn.active span:nth-child(3){transform:rotate(-45deg) translate(7px,-7px)}
-      .about-grid{grid-template-columns:1fr}
     }
 
     @media (max-width:576px){
-      .hero{padding-top:100px;min-height:70vh}
+      .hero{min-height:50vh;padding-top:100px}
       section{padding:50px 0}
     }
   </style>
@@ -92,7 +64,7 @@
 <header>
   <div class="container">
     <div class="nav">
-      <div class="logo"> Oba Pizzaria & Restaurante </div>
+      <div class="logo">Oba Pizzaria & Restaurante</div>
       <button class="menu-btn"><span></span><span></span><span></span></button>
       <nav>
         <ul>
@@ -100,7 +72,7 @@
           <li><a href="menu.html">Cardápio</a></li>
           <li><a href="carrinho.html">Carrinho <span id="cartCountHeader"> </span></a></li>
           <li><a href="about.html">Sobre</a></li>
-          <li><a href="app.html">Reservas</a></li>
+          <li><a href="#">Reservas</a></li>
         </ul>
       </nav>
     </div>
@@ -109,282 +81,25 @@
 
 <section class="hero">
   <div class="container">
-    <h1>Bem-vindo à Oba Pizzaria & Restaurante </h1>
-    <a href="menu.html" class="btn">Ver Cardápio</a>
+    <h1>A Oba Pizzaria & Restaurante </h1>
   </div>
 </section>
 
 <section>
   <div class="container">
-    <div class="offers">
-      <div class="offer-card">
-        <img src="imagens/o1.jpg" alt="Promo Tasty Thursdays" loading="lazy">
-        <div class="offer-body">
-          <h5>Tasty Thursdays</h5>
-          <div class="desconto">20% OFF</div>
-          <a href="menu.html" class="btn">Peça Agora</a>
-        </div>
-      </div>
-      <div class="offer-card">
-        <img src="imagens/o2.jpg" alt="Promo Pizza Days" loading="lazy">
-        <div class="offer-body">
-          <h5>Pizza Days</h5>
-          <div class="desconto">15% OFF</div>
-          <a href="#" class="btn">Peça Agora</a>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<section class="food_section">
-  <div class="container">
-    <h2>Nosso Cardápio</h2>
-    <ul class="menu-filters">
-      <li class="active" data-filter="all">Todos</li>
-      <li>Pizzas</li>
-      <li>Massas</li>
-      <li>Lanches</li>
-      <li>Bebidas</li>
-    </ul>
-    <div class="menu-grid">
-
-      <!-- Pizzas -->
-      <div class="menu-item pizza show" data-name="Pizza Margherita" data-price="38.00">
-        <img src="imagens/Pizza_Margherita.png" alt="Pizza Margherita" loading="lazy">
-        <div class="menu-body">
-          <h5><span class="icon">🍕</span> Pizza Margherita</h5>
-          <p>Molho de tomate caseiro, muçarela derretida, manjericão fresco e azeite extra virgem.</p>
-          <div class="preco">R$ 38,00</div>
-          <button class="add-btn" onclick="addToCart('Pizza Margherita', 38.00)">Adicionar ao Carrinho</button>
-        </div>
-      </div>
-
-      <div class="menu-item pizza show" data-name="Pizza Calabresa" data-price="42.00">
-        <img src="imagens/Pizza_Calabresa.jpg" alt="Pizza Calabresa" loading="lazy">
-        <div class="menu-body">
-          <h5><span class="icon">🍕</span> Pizza Calabresa</h5>
-          <p>Muçarela, calabresa fatiada artesanal, cebola roxa e orégano especial.</p>
-          <div class="preco">R$ 42,00</div>
-          <button class="add-btn" onclick="addToCart('Pizza Calabresa', 42.00)">Adicionar ao Carrinho</button>
-        </div>
-      </div>
-
-      <div class="menu-item pizza show" data-name="Frango com Catupiry" data-price="45.00">
-        <img src="imagens/Pizza_Frango_Catupiry.jpg" alt="Pizza Frango com Catupiry" loading="lazy">
-        <div class="menu-body">
-          <h5><span class="icon">🍕</span> Frango com Catupiry</h5>
-          <p>Frango desfiado temperado, catupiry cremoso, muçarela e toque de milho.</p>
-          <div class="preco">R$ 45,00</div>
-          <button class="add-btn" onclick="addToCart('Frango com Catupiry', 45.00)">Adicionar ao Carrinho</button>
-        </div>
-      </div>
-
-      <!-- Massas -->
-      <div class="menu-item massa show" data-name="Macarrão ao Molho Pesto" data-price="32.00">
-        <img src="imagens/Macarrao_Pesto.jpg" alt="Macarrão ao Molho Pesto" loading="lazy">
-        <div class="menu-body">
-          <h5><span class="icon">🍝</span> Macarrão ao Molho Pesto</h5>
-          <p>Espaguete al dente com pesto de manjericão fresco, parmesão ralado e castanhas.</p>
-          <div class="preco">R$ 32,00</div>
-          <button class="add-btn" onclick="addToCart('Macarrão ao Molho Pesto', 32.00)">Adicionar ao Carrinho</button>
-        </div>
-      </div>
-
-      <div class="menu-item massa show" data-name="Lasanha Bolonhesa" data-price="38.00">
-        <img src="imagens/Lasanha_Bolonhesa.jpg" alt="Lasanha Bolonhesa" loading="lazy">
-        <div class="menu-body">
-          <h5><span class="icon">🍝</span> Lasanha Bolonhesa</h5>
-          <p>Camadas de massa caseira, molho bolonhesa artesanal, bechamel e queijo gratinado.</p>
-          <div class="preco">R$ 38,00</div>
-          <button class="add-btn" onclick="addToCart('Lasanha Bolonhesa', 38.00)">Adicionar ao Carrinho</button>
-        </div>
-      </div>
-
-      <div class="menu-item massa show" data-name="Espaguete Carbonara" data-price="35.00">
-        <img src="imagens/Espaguete_Carbonara.jpg" alt="Espaguete Carbonara" loading="lazy">
-        <div class="menu-body">
-          <h5><span class="icon">🍝</span> Espaguete Carbonara</h5>
-          <p>Espaguete com bacon crocante, ovo cremoso, parmesão e pimenta-do-reino moída na hora.</p>
-          <div class="preco">R$ 35,00</div>
-          <button class="add-btn" onclick="addToCart('Espaguete Carbonara', 35.00)">Adicionar ao Carrinho</button>
-        </div>
-      </div>
-
-      <!-- Lanches -->
-      <div class="menu-item lanche show" data-name="X-Burger Clássico" data-price="22.00">
-        <img src="imagens/HAMBURGUER_CLASSICO.jpg" alt="X-Burger Clássico" loading="lazy">
-        <div class="menu-body">
-          <h5><span class="icon">🍔</span> X-Burger Clássico</h5>
-          <p>Hambúrguer artesanal 150g, queijo cheddar, alface, tomate, maionese caseira e pão brioche.</p>
-          <div class="preco">R$ 22,00</div>
-          <button class="add-btn" onclick="addToCart('X-Burger Clássico', 22.00)">Adicionar ao Carrinho</button>
-        </div>
-      </div>
-
-      <div class="menu-item lanche show" data-name="X-Tudo" data-price="28.00">
-        <img src="imagens/X_TUDO.jpg" alt="X-Tudo" loading="lazy">
-        <div class="menu-body">
-          <h5><span class="icon">🍔</span> X-Tudo</h5>
-          <p>Hambúrguer, queijo, presunto, bacon, ovo, alface, tomate, milho, batata palha e molho especial.</p>
-          <div class="preco">R$ 28,00</div>
-          <button class="add-btn" onclick="addToCart('X-Tudo', 28.00)">Adicionar ao Carrinho</button>
-        </div>
-      </div>
-
-      <!-- Bebidas -->
-      <div class="menu-item bebida show" data-name="Refrigerante 2L" data-price="12.00">
-        <img src="imagens/f5.png" alt="Refrigerante 2L" loading="lazy">
-        <div class="menu-body">
-          <h5><span class="icon">🥤</span> Coca - Cola </h5>
-          <p>Garrafa PET 2 litros.</p>
-          <div class="preco">R$ 12,00</div>
-          <button class="add-btn" onclick="addToCart('Refrigerante 2L', 12.00)">Adicionar ao Carrinho</button>
-        </div>
-      </div>
-
-      <div class="menu-item bebida show" data-name="Refrigerante 2L" data-price="12.00">
-        <img src="imagens/f5.png" alt="Refrigerante 2L" loading="lazy">
-        <div class="menu-body">
-          <h5><span class="icon">🥤</span> Guaraná </h5>
-          <p> Garrafa PET 2 litros.</p>
-          <div class="preco">R$ 12,00</div>
-          <button class="add-btn" onclick="addToCart('Refrigerante 2L', 12.00)">Adicionar ao Carrinho</button>
-        </div>
-      </div>
-
-      <div class="menu-item bebida show" data-name="Refrigerante 2L" data-price="12.00">
-        <img src="imagens/f5.png" alt="Refrigerante 2L" loading="lazy">
-        <div class="menu-body">
-          <h5><span class="icon">🥤</span> Fanta </h5>
-          <p> Garrafa PET 2 litros.</p>
-          <div class="preco">R$ 12,00</div>
-          <button class="add-btn" onclick="addToCart('Refrigerante 2L', 12.00)">Adicionar ao Carrinho</button>
-        </div>
-      </div>
-
-      <div class="menu-item bebida show" data-name="Refrigerante 2L" data-price="12.00">
-        <img src="imagens/f5.png" alt="Refrigerante 2L" loading="lazy">
-        <div class="menu-body">
-          <h5><span class="icon">🥤</span> Sprite </h5>
-          <p> Garrafa PET 2 litros.</p>
-          <div class="preco">R$ 12,00</div>
-          <button class="add-btn" onclick="addToCart('Refrigerante 2L', 12.00)">Adicionar ao Carrinho</button>
-        </div>
-      </div>
-
-
-
-      <div class="menu-item bebida show" data-name="Suco Natural 500ml" data-price="10.00">
-        <img src="imagens/f5.png" alt="Suco Natural 500ml" loading="lazy">
-        <div class="menu-body">
-          <h5><span class="icon">🥤</span> Suco de Limão</h5>
-          <p> Limão natural, sem conservantes. 500 ml</p>
-          <div class="preco">R$ 10,00</div>
-          <button class="add-btn" onclick="addToCart('Suco Natural 500ml', 10.00)">Adicionar ao Carrinho</button>
-        </div>
-      </div>
-
-      <div class="menu-item bebida show" data-name="Suco Natural 500ml" data-price="10.00">
-        <img src="imagens/f5.png" alt="Suco Natural 500ml" loading="lazy">
-        <div class="menu-body">
-          <h5><span class="icon">🥤</span> Suco de Laranja</h5>
-          <p> Laranja natural, sem conservantes. 500 ml</p>
-          <div class="preco">R$ 10,00</div>
-          <button class="add-btn" onclick="addToCart('Suco Natural 500ml', 10.00)">Adicionar ao Carrinho</button>
-        </div>
-      </div>
-
-      <div class="menu-item bebida show" data-name="Suco Natural 500ml" data-price="10.00">
-        <img src="imagens/f5.png" alt="Suco Natural 500ml" loading="lazy">
-        <div class="menu-body">
-          <h5><span class="icon">🥤</span> Suco de Maracujá</h5>
-          <p> Maracujá natural, sem conservantes. 500 ml</p>
-          <div class="preco">R$ 10,00</div>
-          <button class="add-btn" onclick="addToCart('Suco Natural 500ml', 10.00)">Adicionar ao Carrinho</button>
-        </div>
-      </div>
-
-      <div class="menu-item bebida show" data-name="Suco Natural 500ml" data-price="10.00">
-        <img src="imagens/f5.png" alt="Suco Natural 500ml" loading="lazy">
-        <div class="menu-body">
-          <h5><span class="icon">🥤</span> Suco de Uva </h5>
-          <p> Uva natural, sem conservantes. 500 ml</p>
-          <div class="preco">R$ 10,00</div>
-          <button class="add-btn" onclick="addToCart('Suco Natural 500ml', 10.00)">Adicionar ao Carrinho</button>
-        </div>
-      </div>
-
-      <div class="menu-item bebida show" data-name="Água Mineral 500ml" data-price="6.00">
-        <img src="imagens/f5.png" alt="Água Mineral 500ml" loading="lazy">
-        <div class="menu-body">
-          <h5><span class="icon">💧</span> Água Mineral 500ml</h5>
-          <p>Água mineral sem gás, garrafa PET 500ml.</p>
-          <div class="preco">R$ 6,00</div>
-          <button class="add-btn" onclick="addToCart('Água Mineral 500ml', 6.00)">Adicionar ao Carrinho</button>
-        </div>
-      </div>
-
-      <div class="menu-item bebida show" data-name="Cerveja Lata" data-price="9.00">
-        <img src="imagens/f5.png" alt="Cerveja Lata" loading="lazy">
-        <div class="menu-body">
-          <h5><span class="icon">🍺</span> Cerveja Lata</h5>
-          <p>Lata 350ml – Brahma, Skol, Antarctica ou Budweiser (gelada).</p>
-          <div class="preco">R$ 9,00</div>
-          <button class="add-btn" onclick="addToCart('Cerveja Lata', 9.00)">Adicionar ao Carrinho</button>
-        </div>
-      </div>
-
-    </div>
-</section>
-
-<section class="about">
-  <div class="container">
-    <div class="about-grid">
-      <img src="imagens/about-img.png" alt="Sobre a Oba Pizzaria & Restaurante " loading="lazy">
-      <div>
-        <h2>A Oba Pizzaria & Restaurante</h2>
-        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
-        <a href="menuu.html" class="btn">Ver Cardápio</a>
-      </div>
-    </div>
-  </div>
-</section>
-
-  
-<section class="book">
-  <div class="container">
-    <h2>Faça sua Reserva</h2>
-    <form>
-      <input class="form-control" placeholder="Nome" required>
-      <input class="form-control" placeholder="Contato / WhatsApp" required>
-      <input class="form-control" type="email" placeholder="Email" required>
-      <select class="form-control">
-        <option>Mesa para quantos?</option>
-        <option>2 pessoas</option>
-        <option>3 pessoas</option>
-        <option>4 pessoas</option>
-        <option>5+ pessoas</option>
-      </select>
-      <input class="form-control" type="date" required>
-      <button class="btn">Reservar Agora</button>
-    </form>
-  </div>
-</section>
-
-<section class="payments">
-  <div class="container">
-    <h2>Formas de Pagamento</h2>
-    <div class="payment-grid">
-      <div class="payment-card"><img src="imagens/pagamento1.png" alt=""><h6>Dinheiro</h6></div>
-      <div class="payment-card"><img src="imagens/pagamento3.png" alt=""><h6>Cartão</h6></div>
-      <div class="payment-card"><img src="imagens/pagamento2.png" alt=""><h6>Vale Refeição</h6></div>
+    <div class="about-content">
+      <h2>Quem Somos</h2>
+      <img src="imagens/about-img.jpg" alt="Equipe Oba Pizzaria & Restaurante" loading="lazy">
+      <p>Somos apaixonados por comida de que relembrem a infância. Tudo começou com receitas de família e o sonho de trazer sabor de verdade para manter viva a nossas tradições.</p>
+      <p>Hoje, ainda usamos apenas ingredientes frescos, massa artesanal e forno a lenha para entregar o melhor sabor em cada pedaço.</p>
+      <p>Venha nos conhecer ou peça pelo delivery — o carinho está em cada detalhe!</p>
+      <a href="menu.html" class="btn">Ver Cardápio Completo</a>
     </div>
   </div>
 </section>
 
 <div class="whatsapp-float">
-  <a href="https://wa.me/5514999999999?text=Olá!%20Quero%20fazer%20um%20pedido%20na%20Oba%20Pizzaria" target="_blank">
+  <a href="https://wa.me/5514999993333?text=Olá!%20Quero%20saber%20mais%20sobre%20a%20Oba%20Pizzaria" target="_blank">
     <i class="uil uil-whatsapp"></i>
   </a>
 </div>
@@ -401,10 +116,10 @@
 </footer>
 
 <script>
-document.querySelector('.menu-btn').onclick = function(){
-  this.classList.toggle('active');
-  document.querySelector('nav ul').classList.toggle('active');
-};
+  document.querySelector('.menu-btn').onclick = () => {
+    document.querySelector('.menu-btn').classList.toggle('active');
+    document.querySelector('nav ul').classList.toggle('active');
+  };
 </script>
 </body>
 </html>
