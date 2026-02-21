@@ -110,7 +110,7 @@
           <h5><span class="icon">🍕</span> Pizza Margherita</h5>
           <p>Molho de tomate caseiro, muçarela derretida, manjericão fresco e azeite extra virgem.</p>
           <div class="preco">R$ 38,00</div>
-          <button class="add-btn" onclick="addToCart('Pizza Margherita', 38.00)">Adicionar ao Carrinho</button>
+          <button class="add-btn" onclick="addToCart('Pizza Margherita', 38.00, 'imagens/Pizza_Margherita.png')">Adicionar ao Carrinho</button>
         </div>
       </div>
 
@@ -120,7 +120,7 @@
           <h5><span class="icon">🍕</span> Pizza Calabresa</h5>
           <p>Muçarela, calabresa fatiada artesanal, cebola roxa e orégano especial.</p>
           <div class="preco">R$ 42,00</div>
-          <button class="add-btn" onclick="addToCart('Pizza Calabresa', 42.00)">Adicionar ao Carrinho</button>
+          <button class="add-btn" onclick="addToCart('Pizza Calabresa', 42.00, 'imagens/Pizza_Margherita.png')">Adicionar ao Carrinho</button>
         </div>
       </div>
 
@@ -316,7 +316,7 @@
 // Menu mobile
 document.querySelector('.menu-btn').onclick = () => {
   document.querySelector('.menu-btn').classList.toggle('active');
-  document.querySelector('nav ul').classList.toggle('active');
+  document.querySelector('nav ul').classList.toggle('active');add
 };
 
 // Carrinho
@@ -327,12 +327,12 @@ function updateCartCount() {
   document.getElementById('cartCount').textContent = count;
 }
 
-function addToCart(name, price) {
+function addToCart(name, price, image) {
   const existing = cart.find(item => item.name === name);
   if (existing) {
     existing.quantity += 1;
   } else {
-    cart.push({ name, price, quantity: 1 });
+    cart.push({ name, price : Number(price), quantity: 1, image });
   }
   localStorage.setItem('cart', JSON.stringify(cart));
   updateCartCount();
