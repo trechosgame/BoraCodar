@@ -1,72 +1,149 @@
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Carrinho - Oba Pizzaria & Restaurante </title>
-  <meta name="description" content="Veja os itens no seu carrinho e finalize seu pedido agora!">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Carrinho - Oba Pizzaria & Restaurante</title>
+  <meta name="description" content="Confira os itens no seu carrinho e finalize seu pedido agora!"/>
 
-  <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.0/css/line.css">
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.0/css/line.css"/>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet"/>
 
   <style>
-    :root{--primary:#ff6b35;--dark:#222;--light:#fff;--gray:#666;--success:#28a745;--danger:#dc3545}
-    *{margin:0;padding:0;box-sizing:border-box}
-    body{font-family:'Poppins',sans-serif;background:#f9f9f9;color:var(--dark);line-height:1.6}
-    .container{max-width:1100px;margin:0 auto;padding:0 15px}
+    :root {
+      --primary: #ff6b35;
+      --dark: #222;
+      --light: #fff;
+      --gray: #666;
+      --success: #28a745;
+      --danger: #dc3545;
+      --warning: #ffc107;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: #f9f9f9;
+      color: var(--dark);
+      line-height: 1.6;
+    }
+    .container { max-width: 1100px; margin: 0 auto; padding: 0 15px; }
 
-    header{position:fixed;top:0;left:0;width:100%;background:rgba(255,255,255,0.95);backdrop-filter:blur(10px);box-shadow:0 2px 10px rgba(0,0,0,0.08);z-index:1000}
-    .nav{display:flex;justify-content:space-between;align-items:center;padding:1rem 0}
-    .logo{font-size:1.8rem;font-weight:700;color:var(--primary)}
-    .menu-btn{display:none;flex-direction:column;gap:5px;width:35px;cursor:pointer}
-    .menu-btn span{height:3px;background:var(--dark);transition:.4s}
-    nav ul{display:flex;list-style:none;gap:1.5rem;align-items:center}
-    nav a{color:var(--dark);text-decoration:none;font-weight:600}
-    nav a:hover{color:var(--primary)}
+    header {
+      position: fixed;
+      inset: 0 0 auto 0;
+      background: rgba(255,255,255,0.96);
+      backdrop-filter: blur(10px);
+      box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+      z-index: 1000;
+    }
+    .nav { display: flex; justify-content: space-between; align-items: center; padding: 1rem 0; }
+    .logo { font-size: 1.8rem; font-weight: 700; color: var(--primary); }
+    .menu-btn { display: none; flex-direction: column; gap: 5px; width: 35px; cursor: pointer; }
+    .menu-btn span { height: 3px; background: var(--dark); transition: .4s; }
+    nav ul { display: flex; list-style: none; gap: 1.8rem; align-items: center; }
+    nav a { color: var(--dark); text-decoration: none; font-weight: 600; }
+    nav a:hover { color: var(--primary); }
 
-    section{padding:100px 0 60px}
-    h2{text-align:center;font-size:clamp(2rem,6vw,3.5rem);margin-bottom:2rem}
+    main { padding: 100px 0 80px; }
+    h2 { text-align: center; font-size: clamp(2rem, 6vw, 3.5rem); margin-bottom: 2rem; }
 
-    .cart-empty{text-align:center;padding:4rem 0;font-size:1.3rem;color:var(--gray)}
-    .cart-items{margin-bottom:3rem}
-    .cart-item{display:flex;align-items:center;background:white;border-radius:12px;padding:1rem;margin-bottom:1rem;box-shadow:0 4px 12px rgba(0,0,0,0.08);gap:1rem}
-    .cart-item img{width:80px;height:80px;object-fit:cover;border-radius:8px}
-    .item-info{flex-grow:1}
-    .item-info h4{margin-bottom:0.3rem;font-size:1.1rem}
-    .item-info .price{color:var(--primary);font-weight:600}
-    .quantity{display:flex;align-items:center;gap:0.8rem}
-    .quantity button{width:32px;height:32px;border:1px solid #ddd;border-radius:50%;background:none;cursor:pointer;font-size:1.1rem}
-    .quantity span{font-weight:600;min-width:30px;text-align:center}
-    .remove-btn{background:none;border:none;color:var(--danger);font-size:1.4rem;cursor:pointer}
+    .cart-empty { text-align: center; padding: 5rem 1rem; font-size: 1.3rem; color: var(--gray); }
+    .cart-items { display: grid; gap: 1rem; margin-bottom: 2.5rem; }
+    .cart-item {
+      display: grid;
+      grid-template-columns: auto 1fr auto auto auto;
+      align-items: center;
+      gap: 1.2rem;
+      background: white;
+      border-radius: 12px;
+      padding: 1rem;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.06);
+    }
+    .cart-item img { width: 90px; height: 90px; object-fit: cover; border-radius: 10px; }
+    .item-info h4 { margin-bottom: 0.4rem; font-size: 1.15rem; }
+    .item-info .price { color: var(--primary); font-weight: 600; }
+    .quantity { display: flex; align-items: center; gap: 0.7rem; }
+    .quantity button {
+      width: 36px; height: 36px;
+      border: 1px solid #ddd; border-radius: 50%;
+      background: none; cursor: pointer; font-size: 1.2rem; transition: .2s;
+    }
+    .quantity button:hover { background: #f0f0f0; }
+    .remove-btn { background: none; border: none; color: var(--danger); font-size: 1.5rem; cursor: pointer; }
 
-    .cart-summary{background:white;border-radius:12px;padding:1.5rem;box-shadow:0 4px 12px rgba(0,0,0,0.08);text-align:right}
-    .cart-summary h3{margin-bottom:1rem}
-    .cart-summary .total{font-size:1.6rem;font-weight:700;color:var(--primary)}
-    .checkout-btn{background:var(--primary);color:white;border:none;padding:1rem 2rem;border-radius:50px;font-size:1.1rem;font-weight:600;cursor:pointer;margin-top:1.5rem;width:100%;max-width:300px}
-    .checkout-btn:hover{background:#e55a2d}
-    .clear-btn{background:var(--danger);color:white;border:none;padding:0.8rem 1.5rem;border-radius:50px;margin-top:1rem;cursor:pointer}
+    .cart-summary {
+      background: white;
+      border-radius: 12px;
+      padding: 1.8rem;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.06);
+    }
+    .cart-summary h3 { margin-bottom: 1.2rem; font-size: 1.4rem; }
+    .coupon-form { display: flex; gap: 0.8rem; margin: 1.2rem 0; flex-wrap: wrap; }
+    .coupon-form input {
+      flex: 1;
+      padding: 0.9rem;
+      border: 1px solid #ddd;
+      border-radius: 8px;
+      font-size: 1rem;
+      min-width: 180px;
+    }
+    .coupon-form button {
+      background: var(--primary);
+      color: white;
+      border: none;
+      padding: 0.9rem 1.6rem;
+      border-radius: 8px;
+      cursor: pointer;
+      font-weight: 600;
+    }
+    .coupon-form button:hover { background: #e55a2d; }
+    .coupon-message { font-size: 0.95rem; margin-top: 0.5rem; }
+    .success { color: var(--success); }
+    .error   { color: var(--danger); }
+    .warning { color: var(--warning); }
 
-    footer{background:var(--dark);color:white;text-align:center;padding:3rem 0 1.5rem}
-    .social a{color:white;font-size:1.8rem;margin:0 1rem}
+    .total { font-size: 1.7rem; font-weight: 700; color: var(--primary); text-align: right; margin: 1.2rem 0; }
+    .btn {
+      background: var(--primary); color: white; border: none;
+      padding: 1rem 2.2rem; border-radius: 50px; font-size: 1.1rem; font-weight: 600;
+      cursor: pointer; display: inline-block; transition: .2s;
+    }
+    .btn:hover { background: #e55a2d; transform: translateY(-2px); }
+    .btn-danger { background: var(--danger); }
+    .btn-danger:hover { background: #c82333; }
 
-    .whatsapp-float{position:fixed;bottom:20px;right:20px;z-index:9999}
-    .whatsapp-float a{display:flex;align-items:center;justify-content:center;width:60px;height:60px;background:#25D366;color:white;border-radius:50%;font-size:2rem;box-shadow:0 4px 15px rgba(37,211,102,0.4);transition:.3s}
-    .whatsapp-float a:hover{transform:scale(1.1)}
+    footer { background: var(--dark); color: white; text-align: center; padding: 3rem 0 1.5rem; }
+    .social a { color: white; font-size: 1.8rem; margin: 0 1rem; }
 
-    @media (max-width:991px){
-      .menu-btn{display:flex}
-      nav ul{position:fixed;inset:0;background:rgba(255,255,255,0.98);backdrop-filter:blur(10px);flex-direction:column;justify-content:center;align-items:center;transform:translateY(-100%);transition:.4s;z-index:999}
-      nav ul.active{transform:translateY(0)}
-      .menu-btn.active span:nth-child(1){transform:rotate(45deg) translate(8px,8px)}
-      .menu-btn.active span:nth-child(2){opacity:0}
-      .menu-btn.active span:nth-child(3){transform:rotate(-45deg) translate(7px,-7px)}
-      .cart-item{flex-direction:column;text-align:center}
-      .cart-item img{width:120px;height:120px}
+    .whatsapp-float {
+      position: fixed; bottom: 24px; right: 24px; z-index: 9999;
+    }
+    .whatsapp-float a {
+      display: flex; align-items: center; justify-content: center;
+      width: 64px; height: 64px; background: #25D366; color: white;
+      border-radius: 50%; font-size: 2.2rem; box-shadow: 0 6px 20px rgba(37,211,102,0.35);
+      transition: .3s;
+    }
+    .whatsapp-float a:hover { transform: scale(1.12); }
+
+    @media (max-width: 991px) {
+      .menu-btn { display: flex; }
+      nav ul {
+        position: fixed; inset: 0; background: rgba(255,255,255,0.98);
+        backdrop-filter: blur(12px); flex-direction: column;
+        justify-content: center; align-items: center;
+        transform: translateY(-100%); transition: .4s; z-index: 999;
+      }
+      nav ul.active { transform: translateY(0); }
+      .menu-btn.active span:nth-child(1) { transform: rotate(45deg) translate(8px,8px); }
+      .menu-btn.active span:nth-child(2) { opacity: 0; }
+      .menu-btn.active span:nth-child(3) { transform: rotate(-45deg) translate(7px,-7px); }
+      .cart-item { grid-template-columns: 1fr; text-align: center; gap: 1rem; }
+      .cart-item img { width: 140px; height: 140px; margin: 0 auto; }
+      .coupon-form { flex-direction: column; }
     }
 
-    @media (max-width:576px){
-      section{padding:90px 0 40px}
-    }
+    @media (max-width: 576px) { main { padding: 90px 0 60px; } }
   </style>
 </head>
 <body>
@@ -74,14 +151,14 @@
 <header>
   <div class="container">
     <div class="nav">
-      <div class="logo">Oba Pizzaria & Restaurante </div>
-      <button class="menu-btn"><span></span><span></span><span></span></button>
+      <div class="logo">Oba Pizzaria & Restaurante</div>
+      <button class="menu-btn" aria-label="Abrir menu"><span></span><span></span><span></span></button>
       <nav>
         <ul>
           <li><a href="app.html">Início</a></li>
           <li><a href="menu.html">Cardápio</a></li>
           <li><a href="about.html">Sobre</a></li>
-          <li><a href="app.html">Reservas</a></li>
+          <li><a href="reservas.html">Reservas</a></li>
           <li><a href="carrinho.html">Carrinho <span id="cartCountHeader">0</span></a></li>
         </ul>
       </nav>
@@ -89,30 +166,41 @@
   </div>
 </header>
 
-<section>
+<main>
   <div class="container">
     <h2>Seu Carrinho</h2>
 
-    <div class="cart-items" id="cartItems">
-      <!-- Itens serão inseridos via JS -->
+    <div class="cart-items" id="cartItems" aria-live="polite"></div>
+
+    <div class="cart-empty" id="cartEmpty" hidden>
+      <p>Seu carrinho está vazio no momento.</p>
+      <a href="menu.html" class="btn">Explorar Cardápio</a>
     </div>
 
-    <div class="cart-summary" id="cartSummary">
+    <div class="cart-summary" id="cartSummary" hidden>
       <h3>Resumo do Pedido</h3>
-      <p>Total: <span class="total" id="cartTotal">R$ 0,00</span></p>
-      <button class="checkout-btn" onclick="finalizeOrder()"> Finalizar Pedido no WhatsApp </button>
-      <button class="clear-btn" onclick="clearCart()"> Limpar Carrinho </button>
-    </div>
 
-    <div class="cart-empty" id="cartEmpty" style="display:none">
-      <p>Seu carrinho está vazio.</p>
-      <a href="menu.html" class="btn" style="background:var(--primary);color:white;padding:0.8rem 1.5rem;border-radius:50px;text-decoration:none;margin-top:1rem;display:inline-block">Voltar ao Cardápio</a>
+      <div class="coupon-form">
+        <input type="text" id="couponCode" placeholder="Digite o código do cupom" autocomplete="off"/>
+        <button onclick="applyCoupon()">Aplicar</button>
+      </div>
+      <div id="couponMessage" class="coupon-message"></div>
+
+      <div id="discountRow" class="discount-row" hidden>
+        <span>Desconto:</span>
+        <span id="discountValue" class="discount-info"></span>
+      </div>
+
+      <div class="total">Total: <span id="cartTotal">R$ 0,00</span></div>
+
+      <button class="btn" onclick="finalizeOrder()">Finalizar no WhatsApp</button>
+      <button class="btn btn-danger" onclick="clearCart()">Limpar Carrinho</button>
     </div>
   </div>
-</section>
+</main>
 
 <div class="whatsapp-float">
-  <a href="https://wa.me/5514999993333?text=Olá!%20Quero%20fazer%20um%20pedido" target="_blank">
+  <a href="https://wa.me/5514999993333?text=Olá!%20Quero%20fazer%20um%20pedido" target="_blank" aria-label="Fale conosco no WhatsApp">
     <i class="uil uil-whatsapp"></i>
   </a>
 </div>
@@ -129,105 +217,229 @@
 </footer>
 
 <script>
-// Carregar carrinho do localStorage
+// ========== Configuração dos cupons ==========
+const coupons = {
+  '20OFF':    { type: 'percent', value: 20, expires: '2025-12-31' },
+  '10REAL':   { type: 'fixed',   value: 10, expires: '2025-12-31' },
+  'PRIMEIRA': { type: 'percent', value: 15, expires: '2025-06-30' },
+  'OBAPIZZA': { type: 'fixed',   value: 8,  expires: '2025-03-31' }
+};
+
+// ========== Estado ==========
 let cart = JSON.parse(localStorage.getItem('cart')) || [];
+let appliedCoupon = localStorage.getItem('appliedCoupon') || null;
 
-function updateCartDisplay() {
-  const cartItemsDiv = document.getElementById('cartItems');
-  const cartEmptyDiv = document.getElementById('cartEmpty');
-  const cartSummaryDiv = document.getElementById('cartSummary');
-  const cartCountHeader = document.getElementById('cartCountHeader');
+// ========== Funções auxiliares ==========
+const $ = id => document.getElementById(id);
+const formatMoney = n => `R$ ${Number(n).toFixed(2)}`;
+const today = new Date();
 
-  cartItemsDiv.innerHTML = '';
-  let total = 0;
+function isCouponValid(code) {
+  const coupon = coupons[code];
+  if (!coupon) return false;
+  return today <= new Date(coupon.expires);
+}
 
-  if (cart.length === 0) {
-    cartItemsDiv.style.display = 'none';
-    cartEmptyDiv.style.display = 'block';
-    cartSummaryDiv.style.display = 'none';
-    cartCountHeader.textContent = '0';
+// ========== Renderização ==========
+function renderCart() {
+  const itemsEl = $('cartItems');
+  const emptyEl = $('cartEmpty');
+  const summaryEl = $('cartSummary');
+  const countEl = $('cartCountHeader');
+
+  itemsEl.innerHTML = '';
+  let subtotal = 0;
+
+  if (!cart.length) {
+    itemsEl.hidden = true;
+    emptyEl.hidden = false;
+    summaryEl.hidden = true;
+    countEl.textContent = '0';
+    resetCoupon();
     return;
   }
 
-  cartEmptyDiv.style.display = 'none';
-  cartItemsDiv.style.display = 'block';
-  cartSummaryDiv.style.display = 'block';
+  emptyEl.hidden = true;
+  itemsEl.hidden = false;
+  summaryEl.hidden = false;
 
-  cart.forEach((item, index) => {
+  cart.forEach((item, i) => {
     const itemTotal = item.price * item.quantity;
-    total += itemTotal;
+    subtotal += itemTotal;
 
-    const itemElement = document.createElement('div');
-    itemElement.className = 'cart-item';
-    itemElement.innerHTML = `
-      <img src="imagens/placeholder.jpg" alt="${item.name}" loading="lazy">
+    const div = document.createElement('div');
+    div.className = 'cart-item';
+    div.dataset.index = i;
+    div.innerHTML = `
+      <img src="${item.image || 'imagens/placeholder.jpg'}" alt="${item.name}" loading="lazy"/>
       <div class="item-info">
         <h4>${item.name}</h4>
-        <div class="price">R$ ${item.price.toFixed(2)}</div>
+        <div class="price">${formatMoney(item.price)}</div>
       </div>
       <div class="quantity">
-        <button onclick="changeQuantity(${index}, -1)">–</button>
+        <button data-action="decrease" aria-label="Diminuir">–</button>
         <span>${item.quantity}</span>
-        <button onclick="changeQuantity(${index}, 1)">+</button>
+        <button data-action="increase" aria-label="Aumentar">+</button>
       </div>
-      <div style="font-weight:600">R$ ${itemTotal.toFixed(2)}</div>
-      <button class="remove-btn" onclick="removeItem(${index})">🗑️</button>
+      <div style="font-weight:600">${formatMoney(itemTotal)}</div>
+      <button class="remove-btn" data-action="remove" aria-label="Remover">🗑️</button>
     `;
-    cartItemsDiv.appendChild(itemElement);
+    itemsEl.appendChild(div);
   });
 
-  document.getElementById('cartTotal').textContent = `R$ ${total.toFixed(2)}`;
-  cartCountHeader.textContent = cart.reduce((sum, i) => sum + i.quantity, 0);
+  // Aplicar cupom se válido
+  let discount = 0;
+  let discountText = '';
+
+  if (appliedCoupon && isCouponValid(appliedCoupon)) {
+    const coupon = coupons[appliedCoupon];
+    if (coupon.type === 'percent') {
+      discount = subtotal * (coupon.value / 100);
+      discountText = `${coupon.value}% OFF (-${formatMoney(discount)})`;
+    } else {
+      discount = coupon.value;
+      discountText = `${formatMoney(coupon.value)} OFF`;
+    }
+  } else if (appliedCoupon) {
+    resetCoupon();
+  }
+
+  const total = Math.max(0, subtotal - discount);
+  $('cartTotal').textContent = formatMoney(total);
+  countEl.textContent = cart.reduce((sum, item) => sum + item.quantity, 0);
+
+  const discountRow = $('discountRow');
+  const discountValue = $('discountValue');
+  if (discount > 0) {
+    discountRow.hidden = false;
+    discountValue.textContent = discountText;
+  } else {
+    discountRow.hidden = true;
+  }
 }
 
+// ========== Ações ==========
 function changeQuantity(index, delta) {
-  cart[index].quantity += delta;
-  if (cart[index].quantity <= 0) {
-    cart.splice(index, 1);
-  }
+  const item = cart[index];
+  item.quantity = Math.max(1, item.quantity + delta);
   localStorage.setItem('cart', JSON.stringify(cart));
-  updateCartDisplay();
+  renderCart();
 }
 
 function removeItem(index) {
   cart.splice(index, 1);
   localStorage.setItem('cart', JSON.stringify(cart));
-  updateCartDisplay();
+  renderCart();
 }
 
 function clearCart() {
-  if (confirm('Tem certeza que deseja limpar todo o carrinho?')) {
-    cart = [];
-    localStorage.setItem('cart', JSON.stringify(cart));
-    updateCartDisplay();
-  }
+  if (!confirm('Deseja limpar todo o carrinho?')) return;
+  cart = [];
+  localStorage.setItem('cart', JSON.stringify(cart));
+  resetCoupon();
+  renderCart();
 }
 
-function finalizeOrder() {
-  if (cart.length === 0) {
-    alert('Seu carrinho está vazio!');
+function applyCoupon() {
+  const codeInput = $('couponCode');
+  const msgEl = $('couponMessage');
+  const code = codeInput.value.trim().toUpperCase();
+
+  msgEl.className = 'coupon-message';
+  msgEl.textContent = '';
+
+  if (!code) {
+    msgEl.classList.add('error');
+    msgEl.textContent = 'Digite um código válido.';
     return;
   }
 
-  let message = 'Olá Oba Pizzaria & Restaurante! Quero fazer o seguinte pedido:\n\n';
-  let total = 0;
+  if (!coupons[code]) {
+    msgEl.classList.add('error');
+    msgEl.textContent = 'Cupom inválido.';
+    return;
+  }
 
-  cart.forEach(item => {
-    message += `${item.quantity}x ${item.name} - R$ ${(item.price * item.quantity).toFixed(2)}\n`;
-    total += item.price * item.quantity;
-  });
+  if (!isCouponValid(code)) {
+    msgEl.classList.add('warning');
+    msgEl.textContent = `O cupom ${code} expirou.`;
+    return;
+  }
 
-  message += `\nTotal: R$ ${total.toFixed(2)}\n\nEndereço de entrega: [insira seu endereço]\nForma de pagamento: [escolha]`;
-  const whatsappUrl = `https://wa.me/5514999993333?text=${encodeURIComponent(message)}`;
-  window.open(whatsappUrl, '_blank');
+  appliedCoupon = code;
+  localStorage.setItem('appliedCoupon', code);
+  msgEl.classList.add('success');
+  msgEl.textContent = `Cupom ${code} aplicado com sucesso!`;
+  codeInput.value = '';
+  renderCart();
 }
 
-// Inicialização
-updateCartDisplay();
+function resetCoupon() {
+  appliedCoupon = null;
+  localStorage.removeItem('appliedCoupon');
+  $('couponMessage').textContent = '';
+  $('discountRow').hidden = true;
+}
+
+function finalizeOrder() {
+  if (!cart.length) return alert('Seu carrinho está vazio!');
+
+  let msg = 'Olá Oba Pizzaria & Restaurante! Quero fazer o seguinte pedido:\n\n';
+  let subtotal = 0;
+  let discount = 0;
+
+  cart.forEach(item => {
+    const itemTotal = item.price * item.quantity;
+    msg += `${item.quantity}x ${item.name} — ${formatMoney(itemTotal)}\n`;
+    subtotal += itemTotal;
+  });
+
+  if (appliedCoupon && isCouponValid(appliedCoupon)) {
+    const coupon = coupons[appliedCoupon];
+    if (coupon.type === 'percent') {
+      discount = subtotal * (coupon.value / 100);
+      msg += `\nCupom ${appliedCoupon}: ${coupon.value}% OFF (-${formatMoney(discount)})\n`;
+    } else {
+      discount = coupon.value;
+      msg += `\nCupom ${appliedCoupon}: ${formatMoney(coupon.value)} OFF\n`;
+    }
+  }
+
+  const total = Math.max(0, subtotal - discount);
+  msg += `\nSubtotal: ${formatMoney(subtotal)}`;
+  if (discount > 0) msg += `\nDesconto: -${formatMoney(discount)}`;
+  msg += `\nTotal: ${formatMoney(total)}\n\nEndereço: [insira]\nPagamento: [escolha]`;
+
+  window.open(`https://wa.me/5514999993333?text=${encodeURIComponent(msg)}`, '_blank');
+}
+
+// ========== Eventos delegados ==========
+$('cartItems').addEventListener('click', e => {
+  const btn = e.target.closest('button');
+  if (!btn) return;
+
+  const action = btn.dataset.action;
+  const index = Number(btn.closest('.cart-item').dataset.index);
+
+  if (action === 'increase') changeQuantity(index, 1);
+  if (action === 'decrease') changeQuantity(index, -1);
+  if (action === 'remove') removeItem(index);
+});
+
+// ========== Inicialização ==========
+renderCart();
+
+// Carregar cupom salvo (se ainda válido)
+const savedCoupon = localStorage.getItem('appliedCoupon');
+if (savedCoupon && isCouponValid(savedCoupon)) {
+  appliedCoupon = savedCoupon;
+} else if (savedCoupon) {
+  resetCoupon();
+}
 
 // Menu mobile
-document.querySelector('.menu-btn').onclick = () => {
-  document.querySelector('.menu-btn').classList.toggle('active');
+$('.menu-btn').onclick = () => {
+  $('.menu-btn').classList.toggle('active');
   document.querySelector('nav ul').classList.toggle('active');
 };
 </script>
